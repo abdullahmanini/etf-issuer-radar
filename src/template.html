@@ -1,0 +1,596 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ETF Issuer Radar</title>
+<meta name="description" content="382 ETF launches from 133 issuers (Jul to Oct 2026), ranked as partnership prospects for Blossom Social. Every launch is sourced. Built by Abdullah Al Mneni.">
+<meta property="og:title" content="ETF Issuer Radar">
+<meta property="og:description" content="ETF launches since July 2026, ranked as partnership prospects for a social investing app. Every launch is sourced.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a light marketing page that turns into a working tool. Hero + top prospect card, a violet ticker band,
+   the ranked list as the main body, then the pipeline diagram and method. Dark mode mirrors Blossom's app surfaces. */
+:root {
+  --bg: #fcfbff;
+  --surface: #ffffff;
+  --lav: #efecff;
+  --lav-2: #e4dfff;
+  --ink: #17152b;
+  --muted: #625f78;
+  --line: #e4e1f3;
+  --violet: #5b4cf0;
+  --violet-ink: #4a3dd8;
+  --on-violet: #ffffff;
+  --teal: #0f9f8f;
+  --teal-soft: #dcf5f1;
+  --orange: #e8622f;
+  --orange-soft: #fde8de;
+  --shadow: 0 1px 2px rgba(35, 28, 90, .06), 0 8px 24px rgba(35, 28, 90, .07);
+  --display: "Urbanist", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --radius: 18px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1c1c20; --surface: #26262c; --lav: #2b2940; --lav-2: #36335a; --ink: #f2f1f8; --muted: #a9a7ba;
+    --line: #35343e; --violet: #9b8cff; --violet-ink: #b3a8ff; --on-violet: #15132b; --teal: #34d3bf;
+    --teal-soft: #173b37; --orange: #ff8c5e; --orange-soft: #43281f;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.28);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1c1c20; --surface: #26262c; --lav: #2b2940; --lav-2: #36335a; --ink: #f2f1f8; --muted: #a9a7ba;
+  --line: #35343e; --violet: #9b8cff; --violet-ink: #b3a8ff; --on-violet: #15132b; --teal: #34d3bf;
+  --teal-soft: #173b37; --orange: #ff8c5e; --orange-soft: #43281f;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.28);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.55 var(--body); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+a { color: var(--violet-ink); }
+.wrap { max-width: 1140px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); letter-spacing: -.02em; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.3rem, 5.2vw, 3.6rem); font-weight: 800; line-height: 1.02; }
+h2 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); font-weight: 800; line-height: 1.05; }
+h3 { font-size: 1.2rem; font-weight: 700; line-height: 1.2; }
+.hl { color: var(--violet); }
+.eyebrow { font-size: .85rem; font-weight: 600; color: var(--muted); letter-spacing: .01em; margin: 0 0 10px; }
+.lede { color: var(--muted); font-size: 1.08rem; max-width: 56ch; margin: 18px 0 0; }
+.mono { font-family: var(--mono); font-weight: 500; letter-spacing: .01em; }
+.tnum { font-variant-numeric: tabular-nums; }
+:focus-visible { outline: 3px solid var(--violet); outline-offset: 2px; border-radius: 8px; }
+
+/* header */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; gap: 16px; padding-block: 12px; }
+.mark { display: flex; align-items: center; gap: 10px; font: 800 1.2rem/1 var(--display); color: var(--ink); text-decoration: none; letter-spacing: -.02em; }
+.radar { width: 30px; height: 30px; border-radius: 50%; position: relative; background: radial-gradient(circle, var(--violet) 0 3px, transparent 3.5px), repeating-radial-gradient(circle, transparent 0 5px, color-mix(in srgb, var(--violet) 35%, transparent) 5px 6px); overflow: hidden; flex: none; }
+.radar::after { content: ""; position: absolute; inset: 0; background: conic-gradient(from 0deg, color-mix(in srgb, var(--teal) 55%, transparent), transparent 22%); animation: sweep 3.2s linear infinite; }
+@keyframes sweep { to { transform: rotate(1turn); } }
+.by { margin-left: auto; font-size: .85rem; color: var(--muted); }
+.pill { display: inline-flex; align-items: center; gap: 8px; border: 0; border-radius: 999px; padding: 10px 18px; font: 700 .85rem/1 var(--display); letter-spacing: .03em; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
+.pill-solid { background: var(--violet); color: var(--on-violet); }
+.pill-solid:hover { transform: translateY(-1px); box-shadow: 0 6px 18px color-mix(in srgb, var(--violet) 35%, transparent); }
+.pill-ghost { background: var(--lav); color: var(--violet-ink); }
+.pill-ghost:hover { background: var(--lav-2); }
+
+/* hero */
+.hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; padding-block: 56px 48px; }
+.hero-copy { min-width: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0 0; padding: 0; list-style: none; }
+.chip { display: inline-flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; font-size: .92rem; color: var(--ink); box-shadow: 0 1px 2px rgba(35,28,90,.04); }
+.chip b { font-family: var(--display); font-weight: 800; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+.top-card { background: var(--surface); border-radius: 28px; box-shadow: var(--shadow); padding: 24px; position: relative; border: 1px solid var(--line); min-width: 0; }
+.tc-head { display: flex; align-items: center; gap: 18px; }
+.ring { width: 104px; height: 104px; flex: none; position: relative; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring .track { fill: none; stroke: var(--lav); stroke-width: 10; }
+.ring .val { fill: none; stroke: var(--teal); stroke-width: 10; stroke-linecap: round; transition: stroke-dashoffset 1.1s cubic-bezier(.2,.8,.2,1); }
+.ring .num { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; font: 800 1.7rem/1 var(--display); }
+.ring .num small { display: block; font: 600 .68rem/1.2 var(--body); color: var(--muted); letter-spacing: .04em; }
+.tc-label { font-size: .8rem; font-weight: 600; color: var(--muted); }
+.tc-name { font: 800 1.45rem/1.1 var(--display); margin: 2px 0 6px; overflow-wrap: anywhere; }
+.tc-list { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 2px; }
+.tc-list li { display: grid; grid-template-columns: 72px 1fr auto; gap: 10px; align-items: baseline; padding: 9px 0; border-top: 1px solid var(--line); font-size: .9rem; }
+.tc-list li span:nth-child(2) { color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.tc-angle { margin: 14px 0 0; background: var(--lav); border-radius: 14px; padding: 12px 14px; font-size: .9rem; }
+
+/* tags */
+.tag { display: inline-flex; align-items: center; gap: 6px; font: 600 .75rem/1 var(--body); padding: 5px 9px; border-radius: 999px; white-space: nowrap; }
+.tag-new { background: var(--teal-soft); color: var(--teal); }
+.tag-partner { background: var(--lav); color: var(--violet-ink); }
+.tag-seen { background: var(--orange-soft); color: var(--orange); }
+.tag-mkt { background: transparent; border: 1px solid var(--line); color: var(--muted); }
+
+/* ticker band */
+.band { background: var(--violet); color: var(--on-violet); overflow: hidden; }
+.band .wrap { display: flex; align-items: center; gap: 22px; padding-block: 18px; }
+.band-label { font: 800 1.05rem/1.1 var(--display); flex: none; max-width: 11ch; }
+.marquee { overflow: hidden; flex: 1; min-width: 0; mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.track-row { display: flex; gap: 12px; width: max-content; animation: slide 70s linear infinite; }
+.marquee:hover .track-row { animation-play-state: paused; }
+@keyframes slide { to { transform: translateX(-50%); } }
+.tk { display: inline-flex; gap: 8px; align-items: baseline; background: color-mix(in srgb, var(--on-violet) 14%, transparent); border-radius: 999px; padding: 7px 14px; white-space: nowrap; font-size: .85rem; }
+.tk .mono { font-size: .9rem; }
+
+/* sections */
+section.block .wrap { padding-block: 72px 24px; }
+.sec-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 18px 32px; }
+.sec-head > div { min-width: 0; max-width: 680px; }
+
+/* controls */
+.controls { margin-top: 28px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; display: grid; gap: 16px; }
+.ctl-row { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }
+.seg { display: inline-flex; background: var(--lav); border-radius: 999px; padding: 4px; gap: 2px; }
+.seg button { border: 0; background: transparent; color: var(--violet-ink); font: 600 .9rem/1 var(--body); padding: 9px 16px; border-radius: 999px; cursor: pointer; transition: background .2s, color .2s; }
+.seg button[aria-pressed="true"] { background: var(--violet); color: var(--on-violet); }
+.check { display: inline-flex; align-items: center; gap: 8px; font-size: .92rem; cursor: pointer; }
+.check input { width: 18px; height: 18px; accent-color: var(--violet); }
+.search { flex: 1 1 200px; min-width: 0; border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 999px; padding: 10px 16px; font: 400 .95rem var(--body); }
+details.weights summary { cursor: pointer; font-weight: 600; color: var(--violet-ink); list-style: none; display: inline-flex; align-items: center; gap: 8px; }
+details.weights summary::-webkit-details-marker { display: none; }
+details.weights summary::before { content: "+"; display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--lav); font-weight: 700; transition: transform .2s; }
+details.weights[open] summary::before { transform: rotate(45deg); }
+.sliders { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px 22px; margin-top: 14px; }
+.sliders label { display: grid; gap: 6px; font-size: .88rem; }
+.sliders label span { display: flex; justify-content: space-between; gap: 8px; }
+.sliders small { color: var(--muted); font-size: .8rem; line-height: 1.35; }
+.sliders input { width: 100%; accent-color: var(--violet); }
+
+/* ranked list */
+.count { color: var(--muted); font-size: .92rem; margin: 18px 4px 10px; }
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.row { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); transition: box-shadow .2s ease, transform .2s ease, border-color .2s; }
+.row:hover { box-shadow: var(--shadow); transform: translateY(-1px); }
+.row[data-open="true"] { border-color: color-mix(in srgb, var(--violet) 45%, var(--line)); box-shadow: var(--shadow); }
+.row-btn { all: unset; box-sizing: border-box; width: 100%; cursor: pointer; display: grid; grid-template-columns: 34px minmax(0, 1fr) 110px 110px 64px; gap: 14px; align-items: center; padding: 14px 18px; border-radius: var(--radius); }
+.rank { font: 800 1.1rem/1 var(--display); color: var(--muted); }
+.who { min-width: 0; }
+.who h3 { overflow-wrap: anywhere; }
+.who .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.stat { font-size: .82rem; color: var(--muted); }
+.stat b { display: block; color: var(--ink); font: 700 1.05rem/1.2 var(--display); }
+.mini { width: 54px; height: 54px; position: relative; justify-self: end; }
+.mini svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.mini .track { fill: none; stroke: var(--lav); stroke-width: 7; }
+.mini .val { fill: none; stroke: var(--violet); stroke-width: 7; stroke-linecap: round; transition: stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1); }
+.mini span { position: absolute; inset: 0; display: grid; place-items: center; font: 800 1rem/1 var(--display); }
+.detail { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .32s ease; }
+.row[data-open="true"] .detail { grid-template-rows: 1fr; }
+.detail > div { overflow: hidden; min-width: 0; }
+.detail-in { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; padding: 4px 18px 20px; }
+.detail-in > * { min-width: 0; }
+.launches { list-style: none; margin: 0; padding: 0; }
+.launches li { display: grid; grid-template-columns: 70px minmax(0, 1fr) auto; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); font-size: .9rem; align-items: baseline; }
+.launches li a { font-size: .8rem; white-space: nowrap; }
+.launches .nm { min-width: 0; overflow-wrap: anywhere; }
+.launches .cat { display: block; color: var(--muted); font-size: .8rem; }
+.bars { display: grid; gap: 10px; margin: 0; }
+.bar { display: grid; grid-template-columns: 96px 1fr 34px; gap: 10px; align-items: center; font-size: .85rem; }
+.bar i { display: block; height: 8px; border-radius: 99px; background: var(--lav); overflow: hidden; }
+.bar i b { display: block; height: 100%; background: var(--violet); border-radius: 99px; transition: width .5s ease; }
+.angle { margin: 16px 0 0; padding: 14px; border-radius: 14px; background: var(--lav); font-size: .9rem; }
+.angle strong { display: block; font: 700 .8rem/1.2 var(--body); color: var(--violet-ink); margin-bottom: 4px; letter-spacing: .02em; }
+.empty { padding: 28px; text-align: center; color: var(--muted); border: 1px dashed var(--line); border-radius: var(--radius); }
+
+/* pipeline diagram */
+.diagram { margin-top: 32px; background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: 18px; overflow-x: auto; }
+.diagram svg { display: block; width: 100%; min-width: 720px; height: auto; }
+.diagram text { font-family: var(--body); fill: var(--ink); }
+.diagram .sub { fill: var(--muted); font-size: 12px; }
+.diagram .node { fill: var(--bg); stroke: var(--line); }
+.diagram .hub { fill: var(--violet); }
+.diagram .hubtx { fill: var(--on-violet); font-family: var(--display); font-weight: 800; }
+.flow { fill: none; stroke: var(--violet); stroke-width: 1.6; stroke-dasharray: 5 7; opacity: .7; animation: flow 1.6s linear infinite; }
+@keyframes flow { to { stroke-dashoffset: -24; } }
+.steps { list-style: none; margin: 24px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; counter-reset: s; }
+.steps li { background: var(--lav); border-radius: var(--radius); padding: 18px; counter-increment: s; font-size: .93rem; }
+.steps li::before { content: counter(s); display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--violet); color: var(--on-violet); font: 800 .95rem/1 var(--display); margin-bottom: 12px; }
+.steps h3 { font-size: 1.05rem; margin-bottom: 6px; }
+.steps p { margin: 0; color: var(--muted); }
+
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 28px; }
+.cols > * { min-width: 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+.card p { color: var(--muted); margin: 8px 0 0; }
+.fit-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: .9rem; }
+.fit-table td { padding: 7px 0; border-top: 1px solid var(--line); }
+.fit-table td:last-child { text-align: right; font-family: var(--mono); }
+.pchips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.pchips a, .pchips span { text-decoration: none; }
+.notes { color: var(--muted); font-size: .92rem; }
+.notes li { margin: 6px 0; }
+
+.foot { background: var(--violet); color: var(--on-violet); margin-top: 72px; }
+.foot .wrap { padding-block: 48px; display: grid; gap: 10px; }
+.foot h2 { color: inherit; }
+.foot p { margin: 0; max-width: 70ch; opacity: .9; }
+.foot-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px !important; opacity: 1 !important; }
+.foot-links a { color: var(--on-violet); text-decoration: none; font-weight: 600; padding: 8px 16px; border-radius: 999px; background: color-mix(in srgb, var(--on-violet) 16%, transparent); }
+.foot-links a:hover { background: color-mix(in srgb, var(--on-violet) 26%, transparent); }
+
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); background: var(--ink); color: var(--bg); padding: 10px 18px; border-radius: 999px; font-weight: 600; font-size: .9rem; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 20; }
+.toast.on { opacity: 1; transform: translate(-50%, 0); }
+.copy-area { position: fixed; left: -9999px; top: 0; }
+
+/* scroll reveal, only where the browser supports scroll-driven animation; content stays visible otherwise */
+@supports (animation-timeline: view()) {
+  .reveal { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 35%; }
+  @keyframes rise { from { opacity: .55; transform: translateY(26px) scale(.985); } }
+}
+.hero-copy > * { animation: enter .7s cubic-bezier(.2,.8,.2,1) both; }
+.hero-copy > *:nth-child(2) { animation-delay: .06s; } .hero-copy > *:nth-child(3) { animation-delay: .12s; }
+.hero-copy > *:nth-child(4) { animation-delay: .18s; } .hero-copy > *:nth-child(5) { animation-delay: .24s; }
+.top-card { animation: enter .8s .15s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes enter { from { opacity: .6; transform: translateY(14px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .marquee { overflow-x: auto; }
+}
+@media (max-width: 900px) {
+  .hero .wrap { grid-template-columns: 1fr; gap: 32px; padding-block: 36px 32px; }
+  .sliders { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .detail-in, .cols { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
+  .by { display: none; }
+  .top .pill { margin-left: auto; padding: 9px 14px; }
+  .row-btn { grid-template-columns: 26px minmax(0, 1fr) 54px; padding: 14px; }
+  .row-btn .stat { display: none; }
+  .band .wrap { flex-direction: column; align-items: stretch; gap: 10px; }
+  .band-label { max-width: none; }
+  .sliders, .steps { grid-template-columns: 1fr; }
+  .tc-list li { grid-template-columns: 62px 1fr; }
+  .tc-list li span:nth-child(3) { display: none; }
+  .bar { grid-template-columns: 84px 1fr 30px; }
+  .launches li { grid-template-columns: 58px minmax(0, 1fr); row-gap: 4px; }
+  .launches li a { grid-column: 2; }
+  .detail-in { padding: 4px 14px 18px; }
+}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="ETF Issuer Radar, back to top"><span class="radar" aria-hidden="true"></span>issuer radar</a>
+    <span class="by">built by Abdullah Al Mneni</span>
+    <button class="pill pill-solid" id="copy-top" type="button">Copy CSV</button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">a prospect list for blossom's partnerships team</p>
+        <h1>who's launching funds, <span class="hl">ranked for blossom.</span></h1>
+        <p class="lede">An issuer that just launched an ETF has to put it in front of DIY investors fast. Blossom sells that reach. This page tracks every launch I could source since <span id="win-start">July 1</span>, groups the launches by issuer, checks each issuer against Blossom's publicly named partners, and ranks the rest.</p>
+        <ul class="chips" aria-label="Summary">
+          <li class="chip">📈 <b class="tnum" id="s-launches">0</b> new ETFs</li>
+          <li class="chip">🏦 <b class="tnum" id="s-issuers">0</b> issuers</li>
+          <li class="chip">🌱 <b class="tnum" id="s-new">0</b> not yet partners</li>
+        </ul>
+        <div class="cta-row">
+          <a class="pill pill-solid" href="#ranking">See the ranking ↓</a>
+          <a class="pill pill-ghost" href="#how">How it's scored</a>
+        </div>
+      </div>
+      <aside class="top-card" aria-labelledby="tc-name">
+        <div class="tc-head">
+          <div class="ring" aria-hidden="true">
+            <svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="50"></circle><circle class="val" id="tc-ring" cx="60" cy="60" r="50" stroke-dasharray="314.16" stroke-dashoffset="314.16"></circle></svg>
+            <div class="num"><div><span id="tc-score">0</span><small>SCORE</small></div></div>
+          </div>
+          <div style="min-width:0">
+            <div class="tc-label">top new prospect right now</div>
+            <div class="tc-name" id="tc-name">…</div>
+            <div class="tags" id="tc-tags"></div>
+          </div>
+        </div>
+        <ul class="tc-list" id="tc-list"></ul>
+        <p class="tc-angle" id="tc-angle"></p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="band" aria-label="Recent ETF launches">
+    <div class="wrap">
+      <div class="band-label">launched since july 1</div>
+      <div class="marquee"><div class="track-row" id="marquee"></div></div>
+    </div>
+  </div>
+
+  <section class="block" id="ranking">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <p class="eyebrow">the ranking</p>
+          <h2>every issuer, <span class="hl">scored on what it just launched.</span></h2>
+        </div>
+      </div>
+
+      <div class="controls reveal">
+        <div class="ctl-row">
+          <div class="seg" role="group" aria-label="Market">
+            <button type="button" data-mkt="ALL" aria-pressed="true">All</button>
+            <button type="button" data-mkt="US" aria-pressed="false">US</button>
+            <button type="button" data-mkt="CA" aria-pressed="false">Canada</button>
+          </div>
+          <label class="check" for="show-partners"><input type="checkbox" id="show-partners"> Include current partners</label>
+          <input class="search" id="q" type="search" placeholder="Search issuer or ticker" aria-label="Search issuer or ticker">
+        </div>
+        <details class="weights">
+          <summary>Adjust the weights</summary>
+          <div class="sliders">
+            <label for="w-volume"><span>Launch count <b class="tnum" id="o-volume"></b></span><input type="range" id="w-volume" min="0" max="50" step="5"><small>More new funds means more launch budgets to spend.</small></label>
+            <label for="w-recency"><span>Recency <b class="tnum" id="o-recency"></b></span><input type="range" id="w-recency" min="0" max="50" step="5"><small>A fund that listed last week still needs its first buyers.</small></label>
+            <label for="w-fit"><span>Fit with Blossom <b class="tnum" id="o-fit"></b></span><input type="range" id="w-fit" min="0" max="50" step="5"><small>How well the products match a long-term DIY audience.</small></label>
+            <label for="w-us"><span>US push <b class="tnum" id="o-us"></b></span><input type="range" id="w-us" min="0" max="50" step="5"><small>Extra weight for US launches while Blossom hires for NYC.</small></label>
+          </div>
+        </details>
+      </div>
+
+      <p class="count" id="count" aria-live="polite"></p>
+      <ol class="list" id="list"></ol>
+    </div>
+  </section>
+
+  <section class="block" id="how">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <p class="eyebrow">how it works</p>
+          <h2>public sources in, <span class="hl">a CRM-ready list out.</span></h2>
+          <p class="lede">Everything here comes from pages anyone can open: issuer press releases, ETF news roundups, exchange listing notices, the BlossomCon sponsor page and posts where Blossom's own team named its clients. Each launch links back to the page it came from.</p>
+        </div>
+      </div>
+      <div class="diagram reveal" role="img" aria-label="Diagram: four public sources feed the radar, which produces a ranked list, a CSV for the CRM and a BlossomCon sponsor shortlist.">
+        <svg viewBox="0 0 960 330" aria-hidden="true">
+          <g id="lines"></g>
+          <g id="nodes"></g>
+        </svg>
+      </div>
+      <ol class="steps">
+        <li class="reveal"><h3>Collect</h3><p>Pull every ETF that started trading in the window, with its ticker, issuer, date, category and source link.</p></li>
+        <li class="reveal"><h3>Match</h3><p>Normalize issuer names, then flag issuers that Blossom's team has named as partners or that already appear in the app.</p></li>
+        <li class="reveal"><h3>Score</h3><p>Weigh launch count, recency, fit with Blossom's audience and the US push. The sliders above change the weights live.</p></li>
+        <li class="reveal"><h3>Export</h3><p>Copy the ranked list as CSV and paste it into the CRM, one row per issuer with the suggested pitch.</p></li>
+      </ol>
+
+      <div class="cols">
+        <div class="card reveal">
+          <h3>What "fit" means</h3>
+          <p>Blossom's careers page describes its members as long-term investors who want to "get rich slow", and the app's main topics are ETFs, Passive Income, Dividends and Beginner Investors. Products that match those topics score higher. Leveraged single-stock funds score lowest because they suit short-term traders.</p>
+          <table class="fit-table" id="fit-table"><tbody></tbody></table>
+        </div>
+        <div class="card reveal">
+          <h3>Already working with Blossom</h3>
+          <p>Named publicly as BlossomCon 2026 sponsors, as clients in a Blossom team post, or on the careers page. These issuers are hidden from the ranking unless you tick "Include current partners", where they show up as upsell leads for their new funds.</p>
+          <div class="pchips" id="partners"></div>
+          <p style="margin-top:16px">Seen in the app's Featured ETFs module, partner status unknown:</p>
+          <div class="pchips" id="seen"></div>
+        </div>
+      </div>
+
+      <div class="card reveal" style="margin-top:24px">
+        <h3>Limits of this version</h3>
+        <ul class="notes" id="notes"></ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="wrap">
+      <h2>built by abdullah al mneni.</h2>
+      <p>An independent prototype made for an internship conversation with Blossom. It isn't affiliated with or endorsed by Blossom Social. It uses public pages only and touches nothing inside Blossom's app or systems.</p>
+      <p id="stamp"></p>
+      <p class="foot-links"><a href="https://www.linkedin.com/in/abdullah-al-mneni-554809309/" target="_blank" rel="noopener">LinkedIn ↗</a> <a href="https://github.com/abdullahmanini" target="_blank" rel="noopener">GitHub ↗</a></p>
+    </div>
+  </footer>
+</main>
+
+<div class="toast" id="toast" role="status"></div>
+<textarea class="copy-area" id="copy-area" aria-hidden="true" tabindex="-1"></textarea>
+
+<script>
+const DATA = /*__DATA__*/null;
+
+const FIT = {
+  "income/covered-call": 1, "dividend": 1, "all-in-one": .9, "broad index": .85, "thematic": .7,
+  "active equity": .6, "crypto": .55, "fixed income": .5, "other": .5, "buffer/defined-outcome": .45,
+  "leveraged/single-stock": .15
+};
+const ANGLE = {
+  "income/covered-call": "Matches the Passive Income and Dividends topics. Pitch a sponsored spot beside the dividend forecast.",
+  "dividend": "Matches the Passive Income and Dividends topics. Pitch a sponsored spot beside the dividend forecast.",
+  "all-in-one": "Matches Beginner Investors. Pitch a sponsored Learn lesson that explains how the fund works.",
+  "broad index": "Matches Beginner Investors. Pitch a sponsored Learn lesson that explains how the fund works.",
+  "thematic": "Pitch a launch feature in Daily Buzz and a slot in the Markets themes rail.",
+  "active equity": "Pitch a manager Q&A post plus a slot in the Markets themes rail.",
+  "crypto": "Pitch a Learn lesson on the product. Check Blossom's ad rules for crypto first.",
+  "fixed income": "Pitch placement in the New Listings Alert on the Markets page.",
+  "buffer/defined-outcome": "Pitch a Learn lesson on how the buffer works, plus New Listings Alert placement.",
+  "leveraged/single-stock": "Weak match for a long-term audience. Lower priority.",
+  "other": "Pitch placement in the New Listings Alert on the Markets page."
+};
+const DEFAULT_W = { volume: 35, recency: 20, fit: 35, us: 10 };
+const state = { mkt: "ALL", partners: false, q: "", open: null, w: { ...DEFAULT_W } };
+try { const saved = JSON.parse(localStorage.getItem("radar-w") || "null"); if (saved) Object.assign(state.w, saved); } catch (e) {}
+
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch (e) { return "source"; } };
+const day = (d) => d ? Date.parse(d + "T12:00:00Z") : null;
+const fmt = (d) => d ? new Date(day(d)).toLocaleDateString("en-CA", { month: "short", day: "numeric", timeZone: "UTC" }) : "date n/a";
+const eff = (l) => day(l.launch_date || l.week_end);
+// week_end is the recap's Friday; label the week by its Monday so it doesn't read as an exact trading date
+const when = (l) => l.launch_date ? fmt(l.launch_date) : l.week_end ? "wk of " + fmt(new Date(day(l.week_end) - 4 * 864e5).toISOString().slice(0, 10)) : "date n/a";
+
+const winStart = day(DATA.window[0]), winEnd = day(DATA.window[1]), winDays = (winEnd - winStart) / 864e5;
+
+function buildIssuers() {
+  const by = new Map();
+  for (const l of DATA.launches) {
+    if (!by.has(l.issuer)) by.set(l.issuer, { issuer: l.issuer, launches: [], markets: new Set(), status: l.status, status_source: l.status_source });
+    const g = by.get(l.issuer); g.launches.push(l); g.markets.add(l.market);
+  }
+  const maxN = Math.max(...[...by.values()].map((g) => g.launches.length));
+  return [...by.values()].map((g) => {
+    g.launches.sort((a, b) => (eff(b) || 0) - (eff(a) || 0));
+    const dated = g.launches.map(eff).filter(Boolean);
+    const latest = dated.length ? Math.max(...dated) : null;
+    const cats = {}; g.launches.forEach((l) => cats[l.category] = (cats[l.category] || 0) + 1);
+    const top = Object.entries(cats).sort((a, b) => b[1] - a[1] || (FIT[b[0]] ?? .5) - (FIT[a[0]] ?? .5))[0][0];
+    g.c = {
+      volume: Math.log(1 + g.launches.length) / Math.log(1 + maxN),
+      recency: latest ? Math.max(0, Math.min(1, 1 - (winEnd - latest) / 864e5 / winDays)) : 0,
+      fit: g.launches.reduce((s, l) => s + (FIT[l.category] ?? .5), 0) / g.launches.length,
+      us: g.markets.has("US") ? 1 : 0
+    };
+    g.latest = latest; g.topCat = top;
+    g.latestLabel = latest ? when(g.launches.find((l) => eff(l) === latest)) : "n/a";
+    const event = g.markets.has("US") ? "Candidate sponsor for BlossomCon NYC, which Blossom has moved to April." : "Candidate sponsor for the next Canadian BlossomCon.";
+    g.angle = (ANGLE[top] || ANGLE.other) + (top === "leveraged/single-stock" ? "" : " " + event);
+    return g;
+  });
+}
+const ISSUERS = buildIssuers();
+
+function score(g) {
+  const w = state.w, sum = w.volume + w.recency + w.fit + w.us;
+  if (!sum) return 0;
+  return Math.round(100 * (w.volume * g.c.volume + w.recency * g.c.recency + w.fit * g.c.fit + w.us * g.c.us) / sum);
+}
+function ranked(opts = {}) {
+  const q = state.q.trim().toLowerCase();
+  return ISSUERS
+    .filter((g) => opts.all || state.mkt === "ALL" || g.markets.has(state.mkt))
+    .filter((g) => opts.newOnly ? g.status === "new" : (state.partners || g.status !== "partner"))
+    .filter((g) => opts.all || !q || g.issuer.toLowerCase().includes(q) || g.launches.some((l) => (l.ticker || "").toLowerCase().includes(q)))
+    .map((g) => ({ g, s: score(g) }))
+    .sort((a, b) => b.s - a.s || b.g.launches.length - a.g.launches.length || a.g.issuer.localeCompare(b.g.issuer));
+}
+function tags(g) {
+  const st = g.status === "partner" ? '<span class="tag tag-partner">current partner · upsell</span>'
+    : g.status === "seen" ? '<span class="tag tag-seen">seen in app</span>'
+    : '<span class="tag tag-new">new prospect</span>';
+  return st + [...g.markets].sort().map((m) => `<span class="tag tag-mkt">${m === "CA" ? "Canada" : "US"}</span>`).join("");
+}
+const C = 2 * Math.PI * 22;
+function rowHTML({ g, s }, i) {
+  const open = state.open === g.issuer;
+  const bars = [["Launch count", g.c.volume], ["Recency", g.c.recency], ["Fit", g.c.fit], ["US push", g.c.us]]
+    .map(([k, v]) => `<div class="bar"><span>${k}</span><i><b style="width:${Math.round(v * 100)}%"></b></i><span class="tnum">${Math.round(v * 100)}</span></div>`).join("");
+  const launches = g.launches.map((l) => `<li><span class="mono">${esc(l.ticker || "n/a")}</span><span class="nm">${esc(l.name || "Name not stated")}<span class="cat">${esc(l.category)} · ${when(l)}${l.exchange ? " · " + esc(l.exchange) : ""}</span></span><a href="${esc(l.source_url)}" target="_blank" rel="noopener">${esc(host(l.source_url))} ↗</a></li>`).join("");
+  const id = "d-" + i;
+  return `<li class="row" data-open="${open}">
+    <button class="row-btn" type="button" aria-expanded="${open}" aria-controls="${id}" data-issuer="${esc(g.issuer)}">
+      <span class="rank tnum">${i + 1}</span>
+      <span class="who"><h3>${esc(g.issuer)}</h3><span class="tags">${tags(g)}</span></span>
+      <span class="stat"><b class="tnum">${g.launches.length}</b>new ${g.launches.length === 1 ? "fund" : "funds"}</span>
+      <span class="stat"><b>${g.latestLabel}</b>latest launch</span>
+      <span class="mini" aria-label="Score ${s} of 100"><svg viewBox="0 0 54 54"><circle class="track" cx="27" cy="27" r="22"></circle><circle class="val" cx="27" cy="27" r="22" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - s / 100)}"></circle></svg><span class="tnum">${s}</span></span>
+    </button>
+    <div class="detail" id="${id}"><div><div class="detail-in">
+      <div><ul class="launches">${launches}</ul></div>
+      <div><div class="bars">${bars}</div>${g.status_source ? `<p class="stat" style="margin:12px 0 0">Partner source: <a href="${esc(g.status_source)}" target="_blank" rel="noopener">${esc(host(g.status_source))} ↗</a></p>` : ""}<p class="angle"><strong>SUGGESTED PITCH</strong>${esc(g.angle)}</p></div>
+    </div></div></div>
+  </li>`;
+}
+
+function render() {
+  const rows = ranked();
+  $("#list").innerHTML = rows.length ? rows.map(rowHTML).join("") : '<li class="empty">No issuers match. Clear the search or switch the market back to All.</li>';
+  const launchCount = rows.reduce((n, r) => n + r.g.launches.length, 0);
+  $("#count").textContent = `${rows.length} issuers · ${launchCount} launches · click a row for its funds, sources and pitch`;
+  for (const k of Object.keys(state.w)) { $("#w-" + k).value = state.w[k]; $("#o-" + k).textContent = state.w[k]; }
+  renderTop();
+}
+function renderTop() {
+  const best = ranked({ all: true, newOnly: true })[0];
+  if (!best) return;
+  const { g, s } = best;
+  $("#tc-name").textContent = g.issuer;
+  $("#tc-tags").innerHTML = tags(g);
+  $("#tc-score").textContent = s;
+  requestAnimationFrame(() => $("#tc-ring").style.strokeDashoffset = 314.16 * (1 - s / 100));
+  $("#tc-list").innerHTML = g.launches.slice(0, 3).map((l) => `<li><span class="mono">${esc(l.ticker || "n/a")}</span><span>${esc(l.name || "")}</span><span class="stat">${when(l)}</span></li>`).join("");
+  $("#tc-angle").textContent = g.angle;
+}
+
+function csv() {
+  const head = ["rank", "issuer", "status", "markets", "score", "new_funds", "tickers", "latest_launch", "top_category", "suggested_pitch", "sources"];
+  const q = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const lines = ranked().map(({ g, s }, i) => [i + 1, g.issuer, g.status, [...g.markets].join("/"), s, g.launches.length,
+    g.launches.map((l) => l.ticker).filter(Boolean).join(" "), g.latest ? new Date(g.latest).toISOString().slice(0, 10) : "",
+    g.topCat, g.angle, [...new Set(g.launches.map((l) => l.source_url))].join(" ")].map(q).join(","));
+  return [head.join(","), ...lines].join("\n");
+}
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("on"), 2400); }
+function copyCSV() {
+  const text = csv();
+  const fallback = () => { const a = $("#copy-area"); a.value = text; a.select(); let ok = false; try { ok = document.execCommand("copy"); } catch (e) {} toast(ok ? "Copied. Paste it into your CRM or a spreadsheet." : "Couldn't copy here. Try again from a regular browser tab."); };
+  try { navigator.clipboard.writeText(text).then(() => toast(`Copied ${ranked().length} issuers as CSV.`), fallback); } catch (e) { fallback(); }
+}
+
+function diagram() {
+  const L = [["Issuer press releases", "launch announcements"], ["ETF news roundups", "weekly launch lists"], ["Exchange listings", "TSX, Cboe, NYSE, Nasdaq"], ["Blossom team posts", "named partners"]];
+  const R = [["Ranked issuer list", "this page"], ["CSV for the CRM", "one row per issuer"], ["BlossomCon shortlist", "NYC, moved to April"]];
+  const hub = { x: 480, y: 165 };
+  let lines = "", nodes = "";
+  const box = (x, y, t, s, w = 220) => `<g><rect class="node" x="${x}" y="${y - 28}" width="${w}" height="56" rx="16"></rect><text x="${x + 18}" y="${y - 3}" font-size="15" font-weight="600">${t}</text><text class="sub" x="${x + 18}" y="${y + 16}">${s}</text></g>`;
+  L.forEach(([t, s], i) => { const y = 50 + i * 77; lines += `<path class="flow" d="M 250 ${y} C 360 ${y}, 360 ${hub.y}, ${hub.x - 62} ${hub.y}"></path>`; nodes += box(30, y, t, s); });
+  R.forEach(([t, s], i) => { const y = 75 + i * 90; lines += `<path class="flow" d="M ${hub.x + 62} ${hub.y} C 600 ${hub.y}, 600 ${y}, 700 ${y}" style="animation-delay:-.${i + 3}s"></path>`; nodes += box(710, y, t, s); });
+  nodes += `<circle class="hub" cx="${hub.x}" cy="${hub.y}" r="62"></circle><text class="hubtx" x="${hub.x}" y="${hub.y - 4}" text-anchor="middle" font-size="19">issuer</text><text class="hubtx" x="${hub.x}" y="${hub.y + 18}" text-anchor="middle" font-size="19">radar</text>`;
+  $("#lines").innerHTML = lines; $("#nodes").innerHTML = nodes;
+}
+
+function statics() {
+  const all = ISSUERS;
+  $("#s-launches").textContent = DATA.launches.length;
+  $("#s-issuers").textContent = all.length;
+  $("#s-new").textContent = all.filter((g) => g.status === "new").length;
+  $("#win-start").textContent = new Date(winStart).toLocaleDateString("en-CA", { month: "long", day: "numeric", timeZone: "UTC" });
+  const items = [...DATA.launches].sort((a, b) => (eff(b) || 0) - (eff(a) || 0)).slice(0, 40)
+    .map((l) => `<span class="tk"><span class="mono">${esc(l.ticker || "n/a")}</span><span>${esc(l.issuer)}</span></span>`).join("");
+  $("#marquee").innerHTML = items + items.replace(/<span class="tk">/g, '<span class="tk" aria-hidden="true">');
+  $("#fit-table tbody").innerHTML = Object.entries(FIT).map(([k, v]) => `<tr><td>${esc(k)}</td><td>${v.toFixed(2)}</td></tr>`).join("");
+  $("#partners").innerHTML = DATA.partners.map((p) => `<a class="tag tag-partner" href="${esc(p.source_url)}" target="_blank" rel="noopener">${esc(p.name)} ↗</a>`).join("");
+  $("#seen").innerHTML = DATA.seen.map((p) => `<span class="tag tag-seen">${esc(p.name)}</span>`).join("");
+  $("#notes").innerHTML = DATA.notes.map((n) => `<li>${esc(n)}</li>`).join("");
+  $("#stamp").textContent = `Data collected ${new Date(day(DATA.collected)).toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" })}. Launch window ${DATA.window[0]} to ${DATA.window[1]}.`;
+}
+
+document.querySelectorAll(".seg button").forEach((b) => b.addEventListener("click", () => {
+  state.mkt = b.dataset.mkt;
+  document.querySelectorAll(".seg button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  render();
+}));
+$("#show-partners").addEventListener("change", (e) => { state.partners = e.target.checked; render(); });
+$("#q").addEventListener("input", (e) => { state.q = e.target.value; render(); });
+for (const k of Object.keys(DEFAULT_W)) $("#w-" + k).addEventListener("input", (e) => {
+  state.w[k] = Number(e.target.value); $("#o-" + k).textContent = state.w[k];
+  try { localStorage.setItem("radar-w", JSON.stringify(state.w)); } catch (err) {}
+  render();
+});
+$("#list").addEventListener("click", (e) => {
+  const btn = e.target.closest(".row-btn"); if (!btn) return;
+  const li = btn.closest(".row"), issuer = btn.dataset.issuer, opening = li.dataset.open !== "true";
+  document.querySelectorAll('.row[data-open="true"]').forEach((r) => { r.dataset.open = "false"; r.querySelector(".row-btn").setAttribute("aria-expanded", "false"); });
+  li.dataset.open = String(opening); btn.setAttribute("aria-expanded", String(opening));
+  state.open = opening ? issuer : null;
+});
+$("#copy-top").addEventListener("click", copyCSV);
+
+statics(); diagram(); render();
+</script>
+

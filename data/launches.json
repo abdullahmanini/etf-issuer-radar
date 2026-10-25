@@ -1,0 +1,3833 @@
+{
+ "collected": "2026-10-24",
+ "window": [
+  "2026-07-01",
+  "2026-10-23"
+ ],
+ "coverage_notes": {
+  "US": "Primary source is ETF Central's weekly 'ETF News You Missed This Week' recaps for the weeks of Jul 6 through Oct 16, 2026 (15 weeks). These recaps give the launch week but almost never an exact first-trading date, so launch_date is null for every row except Corgi's eight bond/money-market ETFs (Oct 16, 2026) and HAWG (Aug 14, 2026); the week is recoverable from source_url. Exchange is null unless the recap named it. GAPS: (1) Oct 19-23, 2026 is not covered: the ETF Central recap for that week was not yet published (404) and wire-service searches returned nothing in-window. (2) Jul 1-3, 2026 is not covered: the Jun 29-Jul 3 recap (fetched) lists ~28 launches (Corgi July-series buffers, PGIM quarterly buffers, AllianzIM JULI, ARK ARKE, Kurv KMEM, Tema DISK/LAZR, First Eagle FESC/FECM, Defiance RANK, Tradr 2x funds, Skylar MWHS) but gives no dates, so they could not be confirmed as on/after Jul 1 and were excluded. (3) etf.com launch tracker and mutualfunds.com returned HTTP 403; no issuer press releases or exchange listing pages were fetched, so no row is cross-verified against a second source. Rows rest on the WebFetch summarizer's reading of each recap. EXCLUDED: ETNs (BMO/REX MicroSectors), products without a stated ticker or name (Corgi's unnamed 2x single-stock batches in July, a YieldMax memory income fund, Grayscale spot Zcash product, Mast HXA/HXE/HXC, Tradr METQ/AXTQ/COHQ/LWLX), Corgi buffer tickers listed without names (AUGC, CAUG, CTAU, HAUG, QAU, QQAU, IDAU, EMAU, SCAU, week of Aug 3-7), Morgan Stanley Ethereum/Solana Trusts (MSSE/MSOL; structure not stated), Alaia MPDB (ticker conflict with link MPDP), SoFi SFYI (ticker conflict with link SYFI), Guinness Atkinson GAIQ (fund name not given), and the JPMorgan GARP conversion (no ticker). FactSet (search result) reported 106 new US ETFs in September 2026 alone, so this dataset is a broad sample, not a complete census; the recaps themselves may omit launches. CAVEATS: some rows are mutual-fund conversions or ETF share classes of existing funds (BAGX, BRSV, BUSM, RJCA, ZINN, ZDIS, CTAG, TIZE, FFLX from closed-end FCT, HWIV, HWO, HWGV, HWMV, DLCU, DFGV, SECA via Section 351). Direxion's six Defined Income Boost tickers are not mapped to individual names in the source. Issuers are normalized to brand: T-REX funds -> 'REX Shares' (co-sponsored with Tuttle), T-Strive and Tuttle-Rareview -> 'Tuttle Capital Management', Exchange Traded Concepts white-label funds -> the named partner brand (xETFs, Kiwoom Securities, ARIAM Global, Viking Fund Management), FT Vest -> 'First Trust', Leverage Shares by Themes -> 'Leverage Shares'. Category is assigned by name/description and is a judgment call.",
+  "Canada": "launch_date is the first trading day only where a fetched release or recap stated it (\"begins trading today\" or an explicit date). Otherwise it is null and the row is placed in the window by a monthly or weekly roundup (Globe and Mail, Cboe Canada weekly recap, Investment Executive, ETF Express). Null-date rows: NSDC (advisor.ca says 'as of July 9'), ZCDX/ZCDX.U (BMO release of July 30 says 'listed and trading'; a TSX bulletin snippet says July 29), PBY (Globe lists it under July, Cboe under Aug 24-28), TBCK, ZABS x3 (release Aug 27 says 'listed and trading'; a third-party page cites Aug 17), ROSY/TPUT (announced Sept 9; ROSY offering closed Sept 8), TQID (TD release Sept 17, but ETF Facts start date is July 23, both in the window), Manulife x4 (announced Sept 29), NBI x5 (September), Middlefield x2, HONE (week of Sept 28-Oct 2). Date conflicts resolved toward the issuer release: HPYG (Harvest release July 7; advisor.ca says July 8); Global X PowerStock (release Oct 14; Cboe page shows TSLP launched 10/13); PAYT (Brompton release Oct 19; a search snippet claimed 10/15). NAGF and CI Forge (CCAF, CCAF.U, CLSF) rest only on the Cboe Canada ETF news page's 'Newly launched funds' list; no issuer release was found, and the exchange is not stated. Exchange is null where the supporting page does not name it; the Globe '-T' ticker suffix was not treated as evidence. Issuer: iShares-branded and RBC-branded funds are both recorded as 'RBC iShares' (alliance branding used in the releases); split them by fund name if needed. Hamilton/Westcourt WHYP is recorded under Hamilton ETFs (issuing release). Avantis CIBC funds are under CIBC Asset Management. Excluded: launches before July 1 (Desjardins DACU/DACL/DAGL June 29; NBI NCNS/NBLD/NGRW/NEQT/NTHM June 23; Purpose SPXY June 15); Caldwell CPIF/UDA (Canadian Securities Exchange, not TSX/Cboe); new unit classes of existing ETFs (Brompton SPLT.U, Evolve HISA.L/HISU.V); Guardian GICD/GIGD (Kalkine calls them 'newly launched' at an August bell ceremony, but they are absent from July/August roundups and no first-trading date was found); Brompton PAYB (named only in a search summary, never on a fetched page); Harvest IonQ fund (in the prospectus only, no launch found); the AGGX-NE/RBC row in the Globe September extract (looks like a parsing error; RNWH is recorded instead). Not covered: the TMX new-listings bulletins (tsx.com reported 'websites are currently unavailable'); Cboe weekly recaps for July 13-17 (HTTP 500) and October 12-16 / 19-23 (404 or not yet published), so launches from Oct 16-23 other than PAYT and NEI may be missing; no October monthly roundup existed yet. Morningstar Canada, Canadian Investment Review and Wealth Professional were not systematically checked. Some fields came from search-result summaries (e.g. GIAI July 28, TECY Aug 13, CAMO Aug 20, VCOR Sept 9, ZACU Sept 24, CMIG Sept 15, FGQE Oct 1, Ninepoint Sept 14, WHYP Sept 10) rather than full-page fetches. One fetch summary (TradingView NEI) returned wrong tickers; the newswire.ca original was used instead, so treat other summary-only fields with similar caution. Category is my own classification from the fund name and description, not a source field. BlossomCon: the sponsor list comes from the official tour page, which gives only a general list plus Toronto tour sponsors; no Vancouver- or NYC-specific sponsors are listed. A search summary also called Harvest the presenting sponsor for the 3rd straight year and mentioned 14 sponsor activations, but I did not verify this on a fetched page. No 2027 dates were found beyond the NYC 'Rescheduled to April' note."
+ },
+ "launches": [
+  {
+   "ticker": "BWQG",
+   "name": "BWM Quality Growth ETF",
+   "issuer": "Burke Wealth Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "NSIV",
+   "name": "North Square Disciplined Value ETF",
+   "issuer": "North Square Investments",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "NSIG",
+   "name": "North Square Growth Opportunities ETF",
+   "issuer": "North Square Investments",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "SLVY",
+   "name": "FT Vest Silver Strategy & Target Income ETF",
+   "issuer": "First Trust",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "DRVR",
+   "name": "Amplify S&P 500 Dividend Drivers ETF",
+   "issuer": "Amplify",
+   "launch_date": null,
+   "exchange": null,
+   "category": "dividend",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "LCTO",
+   "name": "Kurv U.S. Large Cap TaxOptimized ETF",
+   "issuer": "Kurv Investment Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "WSPC",
+   "name": "WisdomTree Space Economy Fund",
+   "issuer": "WisdomTree",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "FSPC",
+   "name": "First Trust Bloomberg Space Economy ETF",
+   "issuer": "First Trust",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "IQQ",
+   "name": "iShares Nasdaq 100 ETF",
+   "issuer": "iShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "broad index",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "SNTQ",
+   "name": "MRP SynthEquity Nasdaq 100 ETF",
+   "issuer": "Measured Risk Portfolios",
+   "launch_date": null,
+   "exchange": null,
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "TRUN",
+   "name": "VanEck Energy ETF",
+   "issuer": "VanEck",
+   "launch_date": null,
+   "exchange": null,
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "TRUU",
+   "name": "VanEck Utilities ETF",
+   "issuer": "VanEck",
+   "launch_date": null,
+   "exchange": null,
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "TRUR",
+   "name": "VanEck Real Estate ETF",
+   "issuer": "VanEck",
+   "launch_date": null,
+   "exchange": null,
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "TRUM",
+   "name": "VanEck Materials ETF",
+   "issuer": "VanEck",
+   "launch_date": null,
+   "exchange": null,
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "GOOL",
+   "name": "Leverage Shares 2X Long GOOGL Daily ETF",
+   "issuer": "Leverage Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "AMZG",
+   "name": "Leverage Shares 2X Long AMZN Daily ETF",
+   "issuer": "Leverage Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "METG",
+   "name": "Leverage Shares 2X Long META Daily ETF",
+   "issuer": "Leverage Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "AAPE",
+   "name": "Leverage Shares 2X Long AAPL Daily ETF",
+   "issuer": "Leverage Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "JBLG",
+   "name": "Leverage Shares 2X Long JBL Daily ETF",
+   "issuer": "Leverage Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "VIAG",
+   "name": "Leverage Shares 2X Long VIAV Daily ETF",
+   "issuer": "Leverage Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "PUR",
+   "name": "Defiance Daily Target 2X Long PURR ETF",
+   "issuer": "Defiance",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-6-july-10-2026"
+  },
+  {
+   "ticker": "JLCO",
+   "name": "John Hancock Large Cap Opportunities ETF",
+   "issuer": "John Hancock",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "KWH",
+   "name": "GMO Power Infrastructure ETF",
+   "issuer": "GMO",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "LUMA",
+   "name": "KraneShares Photonic and Optical ETF",
+   "issuer": "KraneShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "NQLT",
+   "name": "Neuberger Quality Select ETF",
+   "issuer": "Neuberger Berman",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "QFF",
+   "name": "Qualivian Focus Fund ETF",
+   "issuer": "Qualivian Investment Partners",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "SEUS",
+   "name": "SEI QiM U.S. Equity Factor Allocation Active ETF",
+   "issuer": "SEI",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "GALX",
+   "name": "VistaShares Space Supercycle ETF",
+   "issuer": "VistaShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "AMMO",
+   "name": "VistaShares Defense Supercycle ETF",
+   "issuer": "VistaShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "RTOO",
+   "name": "VistaShares Robotics Supercycle ETF",
+   "issuer": "VistaShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "DRMY",
+   "name": "XFUNDS Memory Income ETF",
+   "issuer": "XFUNDS",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "CDPI",
+   "name": "Columbia High Dividend Premium Income ETF",
+   "issuer": "Columbia Threadneedle",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "RECI",
+   "name": "Columbia Research Enhanced Core Premium Income ETF",
+   "issuer": "Columbia Threadneedle",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "TMGN",
+   "name": "TappAlpha Cboe Magnificent 10 Growth & Daily Income ETF",
+   "issuer": "TappAlpha",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "VPFF",
+   "name": "Virtus InfraCap Preferred and Income Securities ETF",
+   "issuer": "Virtus Investment Partners",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "YSPC",
+   "name": "YieldMax SPCX Option Income Strategy ETF",
+   "issuer": "YieldMax",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "YSAU",
+   "name": "Y'all Street Physical Gold ETF",
+   "issuer": "Y'all Street",
+   "launch_date": null,
+   "exchange": null,
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "YSAG",
+   "name": "Y'all Street Physical Silver ETF",
+   "issuer": "Y'all Street",
+   "launch_date": null,
+   "exchange": null,
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "SKUU",
+   "name": "GraniteShares 2x Long SK Hynix Daily ETF",
+   "issuer": "GraniteShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "SKDD",
+   "name": "GraniteShares 2x Short SK Hynix Daily ETF",
+   "issuer": "GraniteShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "SKHX",
+   "name": "Leverage Shares 2x Long SK Hynix Daily ETF",
+   "issuer": "Leverage Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "SKHZ",
+   "name": "Leverage Shares 1x Short SK Hynix Daily ETF",
+   "issuer": "Leverage Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "SKHU",
+   "name": "ProShares Ultra SK hynix ETF",
+   "issuer": "ProShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "HYNX",
+   "name": "T-REX 2X Long SK Hynix Daily Target ETF",
+   "issuer": "REX Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "SKHL",
+   "name": "Direxion Daily SK Hynix Bull 2X ETF",
+   "issuer": "Direxion",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "SK",
+   "name": "Corgi SK Hynix 2x Daily ETF",
+   "issuer": "Corgi",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "NTAL",
+   "name": "GraniteShares 2x Long NTAP Daily ETF",
+   "issuer": "GraniteShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "TDCL",
+   "name": "GraniteShares 2x Long TDC Daily ETF",
+   "issuer": "GraniteShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "BTDL",
+   "name": "GraniteShares 2x Long BTDR Daily ETF",
+   "issuer": "GraniteShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "OUSL",
+   "name": "Defiance Daily Target 2X Long OUST ETF",
+   "issuer": "Defiance",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "AAOZ",
+   "name": "Tradr 2X Short AAOI Daily ETF",
+   "issuer": "Tradr",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "ORCZ",
+   "name": "Tradr 2X Short ORCL Daily ETF",
+   "issuer": "Tradr",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "TKNZ",
+   "name": "T. Rowe Price Active Crypto ETF",
+   "issuer": "T. Rowe Price",
+   "launch_date": null,
+   "exchange": null,
+   "category": "crypto",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-13-july-17-2026"
+  },
+  {
+   "ticker": "LOEV",
+   "name": "International Developed Markets Select Equity ETF",
+   "issuer": "Harding Loevner",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-20-july-24-2026"
+  },
+  {
+   "ticker": "AAUB",
+   "name": "Alpha Architect US Equity 4 ETF",
+   "issuer": "Alpha Architect",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-20-july-24-2026"
+  },
+  {
+   "ticker": "HLTH",
+   "name": "Tema Healthcare AI ETF",
+   "issuer": "Tema",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-20-july-24-2026"
+  },
+  {
+   "ticker": "AIHY",
+   "name": "Defiance AI Hyperscale Leaders ETF",
+   "issuer": "Defiance",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-20-july-24-2026"
+  },
+  {
+   "ticker": "EQQQ",
+   "name": "Ultra QQQ Equal Weight ETF",
+   "issuer": "ProShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-20-july-24-2026"
+  },
+  {
+   "ticker": "PMTL",
+   "name": "First Trust Indxx Quality Precious Metals Miners ETF",
+   "issuer": "First Trust",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-20-july-24-2026"
+  },
+  {
+   "ticker": "DGJL",
+   "name": "FT Vest U.S. Equity Buffer & Digital Return ETF - July",
+   "issuer": "First Trust",
+   "launch_date": null,
+   "exchange": null,
+   "category": "buffer/defined-outcome",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-20-july-24-2026"
+  },
+  {
+   "ticker": "JLVP",
+   "name": "JPMorgan U.S. Large Cap Value Plus ETF",
+   "issuer": "J.P. Morgan",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-27-july-31-2026"
+  },
+  {
+   "ticker": "WSMD",
+   "name": "Wasatch Small/Mid Cap ETF",
+   "issuer": "Wasatch Global Investors",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-27-july-31-2026"
+  },
+  {
+   "ticker": "BGUS",
+   "name": "Baillie Gifford U.S. Equity Growth ETF",
+   "issuer": "Baillie Gifford",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-27-july-31-2026"
+  },
+  {
+   "ticker": "BGFI",
+   "name": "BNY Mellon Global Fixed Income ETF",
+   "issuer": "BNY Mellon",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-27-july-31-2026"
+  },
+  {
+   "ticker": "BMSI",
+   "name": "BNY Mellon Multi-Sector Income ETF",
+   "issuer": "BNY Mellon",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-27-july-31-2026"
+  },
+  {
+   "ticker": "ARCP",
+   "name": "Aristotle Core Plus Income ETF",
+   "issuer": "Aristotle Funds",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-27-july-31-2026"
+  },
+  {
+   "ticker": "ARMS",
+   "name": "Aristotle Multi-Sector Income ETF",
+   "issuer": "Aristotle Funds",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-27-july-31-2026"
+  },
+  {
+   "ticker": "SDUR",
+   "name": "Aristotle Short Term Income ETF",
+   "issuer": "Aristotle Funds",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-27-july-31-2026"
+  },
+  {
+   "ticker": "NVIB",
+   "name": "Direxion Defined Income Boost ETF (individual name not stated)",
+   "issuer": "Direxion",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-27-july-31-2026"
+  },
+  {
+   "ticker": "TSIB",
+   "name": "Direxion Defined Income Boost ETF (individual name not stated)",
+   "issuer": "Direxion",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-27-july-31-2026"
+  },
+  {
+   "ticker": "GOIB",
+   "name": "Direxion Defined Income Boost ETF (individual name not stated)",
+   "issuer": "Direxion",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-27-july-31-2026"
+  },
+  {
+   "ticker": "MEIB",
+   "name": "Direxion Defined Income Boost ETF (individual name not stated)",
+   "issuer": "Direxion",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-27-july-31-2026"
+  },
+  {
+   "ticker": "PLIB",
+   "name": "Direxion Defined Income Boost ETF (individual name not stated)",
+   "issuer": "Direxion",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-27-july-31-2026"
+  },
+  {
+   "ticker": "MUIB",
+   "name": "Direxion Defined Income Boost ETF (individual name not stated)",
+   "issuer": "Direxion",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-27-july-31-2026"
+  },
+  {
+   "ticker": "RAMZ",
+   "name": "T-REX 2X Inverse DRAM Daily Target ETF",
+   "issuer": "REX Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-27-july-31-2026"
+  },
+  {
+   "ticker": "ELOL",
+   "name": "Leverage Shares 100% TSLA and 100% SpaceX Daily ETF",
+   "issuer": "Leverage Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-27-july-31-2026"
+  },
+  {
+   "ticker": "BNAV",
+   "name": "Amplify Fairlead Tactical Bitcoin ETF",
+   "issuer": "Amplify",
+   "launch_date": null,
+   "exchange": null,
+   "category": "crypto",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-july-27-july-31-2026"
+  },
+  {
+   "ticker": "NCLD",
+   "name": "Roundhill Neocloud ETF",
+   "issuer": "Roundhill",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-3-7-2026"
+  },
+  {
+   "ticker": "LYTE",
+   "name": "Roundhill Photonics & Optics ETF",
+   "issuer": "Roundhill",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-3-7-2026"
+  },
+  {
+   "ticker": "FIZY",
+   "name": "Fitz-Gerald Must Have Portfolio and Options Overlay ETF",
+   "issuer": "XFUNDS",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-3-7-2026"
+  },
+  {
+   "ticker": "TIH",
+   "name": "The Investment House ETF",
+   "issuer": "The Investment House",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-3-7-2026"
+  },
+  {
+   "ticker": "CHDG",
+   "name": "Calamos Active Hedged Equity ETF",
+   "issuer": "Calamos",
+   "launch_date": null,
+   "exchange": null,
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-3-7-2026"
+  },
+  {
+   "ticker": "ANGU",
+   "name": "SEI Ang Research Enhanced U.S. Large Cap ETF",
+   "issuer": "SEI",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-3-7-2026"
+  },
+  {
+   "ticker": "DDFG",
+   "name": "Equity Dual Directional 15 Buffer ETF",
+   "issuer": "Innovator",
+   "launch_date": null,
+   "exchange": null,
+   "category": "buffer/defined-outcome",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-3-7-2026"
+  },
+  {
+   "ticker": "DDTG",
+   "name": "Equity Dual Directional 10 Buffer ETF",
+   "issuer": "Innovator",
+   "launch_date": null,
+   "exchange": null,
+   "category": "buffer/defined-outcome",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-3-7-2026"
+  },
+  {
+   "ticker": "KEO",
+   "name": "Kurv Equity Option Income ETF",
+   "issuer": "Kurv Investment Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-3-7-2026"
+  },
+  {
+   "ticker": "LOFD",
+   "name": "Direxion Daily SpaceX Bear 2X ETF",
+   "issuer": "Direxion",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-3-7-2026"
+  },
+  {
+   "ticker": "OAIW",
+   "name": "OpenAI Lab Ecosystem ETF",
+   "issuer": "Harbor Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "ANTW",
+   "name": "Anthropic AI Lab Ecosystem ETF",
+   "issuer": "Harbor Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "MTAW",
+   "name": "Meta AI Lab Ecosystem ETF",
+   "issuer": "Harbor Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "DEPW",
+   "name": "Google DeepMind AI Lab Ecosystem ETF",
+   "issuer": "Harbor Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "XAIW",
+   "name": "SpaceXAI Lab Ecosystem ETF",
+   "issuer": "Harbor Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "CGPT",
+   "name": "VegaShares AI Inference ETF",
+   "issuer": "VegaShares",
+   "launch_date": null,
+   "exchange": "Nasdaq",
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "COOL",
+   "name": "VegaShares AI Thermal, Cooling & Power Management ETF",
+   "issuer": "VegaShares",
+   "launch_date": null,
+   "exchange": "Nasdaq",
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "PHOX",
+   "name": "Aura AI Photonics ETF",
+   "issuer": "Aura",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "ARIA",
+   "name": "ARIA Opportunities ETF",
+   "issuer": "ARIAM Global",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "ACSP",
+   "name": "ProShares S&P 500 Autocallable Income ETF",
+   "issuer": "ProShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "ACQQ",
+   "name": "ProShares Nasdaq-100 Autocallable Income ETF",
+   "issuer": "ProShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "ACRT",
+   "name": "ProShares Russell 2000 Autocallable Income ETF",
+   "issuer": "ProShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "MPDY",
+   "name": "m+ DualYield Autocall ETF",
+   "issuer": "Alaia Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "MPIA",
+   "name": "m+ Nasdaq-100 Accelerator Autocall ETF",
+   "issuer": "Alaia Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "MPIM",
+   "name": "m+ Income Momentum Autocall ETF",
+   "issuer": "Alaia Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "DACL",
+   "name": "REX Defensive Autocallable Income ETF",
+   "issuer": "REX Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "HAWG",
+   "name": "HCM Hedged Equity ETF",
+   "issuer": "Howard Capital Management",
+   "launch_date": "2026-08-14",
+   "exchange": null,
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "EXPN",
+   "name": "Horizon Expansion Leaders ETF",
+   "issuer": "Horizon",
+   "launch_date": null,
+   "exchange": "Cboe",
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "YLDY",
+   "name": "Horizon High Income ETF",
+   "issuer": "Horizon",
+   "launch_date": null,
+   "exchange": "Cboe",
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "CSRA",
+   "name": "Cohen & Steers Real Assets Active ETF",
+   "issuer": "Cohen & Steers",
+   "launch_date": null,
+   "exchange": "NYSE Arca",
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "MRAX",
+   "name": "Tradr 2X Long MRAM Daily ETF",
+   "issuer": "Tradr",
+   "launch_date": null,
+   "exchange": "Cboe",
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "SITX",
+   "name": "Tradr 2X Long SITM Daily ETF",
+   "issuer": "Tradr",
+   "launch_date": null,
+   "exchange": "Cboe",
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "UMCU",
+   "name": "Tradr 2X Long UMC Daily ETF",
+   "issuer": "Tradr",
+   "launch_date": null,
+   "exchange": "Cboe",
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "LITG",
+   "name": "Leverage Shares 2X Long LITE Daily ETF",
+   "issuer": "Leverage Shares",
+   "launch_date": null,
+   "exchange": "Cboe",
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "STLL",
+   "name": "Leverage Shares 2X Long STRL Daily ETF",
+   "issuer": "Leverage Shares",
+   "launch_date": null,
+   "exchange": "Cboe",
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "MXLL",
+   "name": "Leverage Shares 2X Long MXL Daily ETF",
+   "issuer": "Leverage Shares",
+   "launch_date": null,
+   "exchange": "Cboe",
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "BEMD",
+   "name": "BNY Mellon Emerging Markets Debt ETF",
+   "issuer": "BNY Mellon",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "GCPB",
+   "name": "Goldman Sachs Core Plus Bond ETF",
+   "issuer": "Goldman Sachs Asset Management",
+   "launch_date": null,
+   "exchange": "NYSE",
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "GINC",
+   "name": "Goldman Sachs Income ETF",
+   "issuer": "Goldman Sachs Asset Management",
+   "launch_date": null,
+   "exchange": "NYSE",
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-10-14-2026"
+  },
+  {
+   "ticker": "SIC",
+   "name": "Tema Power Semiconductor ETF",
+   "issuer": "Tema",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "KAIT",
+   "name": "KraneShares Asia AI Technology ETF",
+   "issuer": "KraneShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "KSMH",
+   "name": "xETFs Korea AI Semiconductor ETF",
+   "issuer": "xETFs",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "BBLS",
+   "name": "Munificent Seven ETF",
+   "issuer": "Harbor Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "CROB",
+   "name": "Defiance China Robotics ETF",
+   "issuer": "Defiance",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "AINF",
+   "name": "Defiance Inference AI Chip ETF",
+   "issuer": "Defiance",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "ARKY",
+   "name": "ARK Active Autocallable Income ETF",
+   "issuer": "ARK Invest",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "IACL",
+   "name": "GraniteShares US 100 Autocallable Income ETF",
+   "issuer": "GraniteShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "GEEQ",
+   "name": "Guggenheim Enhanced Equity Income ETF",
+   "issuer": "Guggenheim",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "XVTS",
+   "name": "FT Vest TSLA & Target Income ETF",
+   "issuer": "First Trust",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "XVAP",
+   "name": "FT Vest AAPL & Target Income ETF",
+   "issuer": "First Trust",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "XVNV",
+   "name": "FT Vest NVDA & Target Income ETF",
+   "issuer": "First Trust",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "FTG",
+   "name": "FullerThaler Behavioral Growth ETF",
+   "issuer": "FullerThaler",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "HIAI",
+   "name": "Ai Funds High Conviction US Equity AI-Managed ETF",
+   "issuer": "Ai Funds",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "XQBT",
+   "name": "Amplify Top 10 Quantum ETF",
+   "issuer": "Amplify",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "XWNG",
+   "name": "Amplify Top 10 Space ETF",
+   "issuer": "Amplify",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "ROBX",
+   "name": "Amplify Top 10 Robotics ETF",
+   "issuer": "Amplify",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "AHBM",
+   "name": "Amplify Top 10 Asia Memory ETF",
+   "issuer": "Amplify",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "MUG",
+   "name": "Leverage Shares 2X Long MU Daily ETF",
+   "issuer": "Leverage Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "FIXX",
+   "name": "Leverage Shares 2X Long FIX Daily ETF",
+   "issuer": "Leverage Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "FLEL",
+   "name": "Leverage Shares 2X Long FLEX Daily ETF",
+   "issuer": "Leverage Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "STMX",
+   "name": "Leverage Shares 2X Long STM Daily ETF",
+   "issuer": "Leverage Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "GCLO",
+   "name": "Guggenheim Investment Grade CLO ETF",
+   "issuer": "Guggenheim",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "XCSH",
+   "name": "1-3 Month BOX ETF",
+   "issuer": "XFUNDS",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-17-21-2026"
+  },
+  {
+   "ticker": "KPO",
+   "name": "Premium Opportunities ETF",
+   "issuer": "Kensington Asset Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "SQBA",
+   "name": "FT Vest U.S. Equity Quarterly 15 Buffer ETF",
+   "issuer": "First Trust",
+   "launch_date": null,
+   "exchange": null,
+   "category": "buffer/defined-outcome",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "JULV",
+   "name": "VanEck U.S. Equity Buffer ETF - July",
+   "issuer": "VanEck",
+   "launch_date": null,
+   "exchange": null,
+   "category": "buffer/defined-outcome",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "AEMC",
+   "name": "Harbor AlphaEdge Mid Cap Core ETF",
+   "issuer": "Harbor Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "AEMG",
+   "name": "Harbor AlphaEdge Mid Cap Growth ETF",
+   "issuer": "Harbor Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "AEMV",
+   "name": "Harbor AlphaEdge Mid Cap Value ETF",
+   "issuer": "Harbor Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "AESB",
+   "name": "Harbor AlphaEdge Small Cap Core ETF",
+   "issuer": "Harbor Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "AESG",
+   "name": "Harbor AlphaEdge Small Cap Growth ETF",
+   "issuer": "Harbor Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "AESL",
+   "name": "Harbor AlphaEdge Small Cap Value ETF",
+   "issuer": "Harbor Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "OTAX",
+   "name": "Optimal Tax Managed Equity ETF",
+   "issuer": "Optimal Tax Asset Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "PRAM",
+   "name": "Defiance Memory & Photonics ETF",
+   "issuer": "Defiance",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "CAPA",
+   "name": "Defiance AI Capacitors Leaders ETF",
+   "issuer": "Defiance",
+   "launch_date": null,
+   "exchange": "Cboe",
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "TGRZ",
+   "name": "China AI Tigers LLM ETF",
+   "issuer": "EMXETF",
+   "launch_date": null,
+   "exchange": "Nasdaq",
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "LBOX",
+   "name": "GraniteShares Short Term Box ETF",
+   "issuer": "GraniteShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "XVSP",
+   "name": "FT Vest SPCX & Target Income ETF",
+   "issuer": "First Trust",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "DSPC",
+   "name": "Leverage Shares 1X Short SPCX Daily ETF",
+   "issuer": "Leverage Shares",
+   "launch_date": null,
+   "exchange": "Cboe",
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "TIPE",
+   "name": "Northern Trust 2031 Inflation-Linked Distributing Ladder ETF",
+   "issuer": "Northern Trust Asset Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "TIPF",
+   "name": "Northern Trust 2036 Inflation-Linked Distributing Ladder ETF",
+   "issuer": "Northern Trust Asset Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "TIPG",
+   "name": "Northern Trust 2046 Inflation-Linked Distributing Ladder ETF",
+   "issuer": "Northern Trust Asset Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "TIPH",
+   "name": "Northern Trust 2056 Inflation-Linked Distributing Ladder ETF",
+   "issuer": "Northern Trust Asset Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "MUNJ",
+   "name": "Northern Trust 2031 Tax-Exempt Distributing Ladder ETF",
+   "issuer": "Northern Trust Asset Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "MUNF",
+   "name": "Northern Trust 2036 Tax-Exempt Distributing Ladder ETF",
+   "issuer": "Northern Trust Asset Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "MUNG",
+   "name": "Northern Trust 2046 Tax-Exempt Distributing Ladder ETF",
+   "issuer": "Northern Trust Asset Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "MUNH",
+   "name": "Northern Trust 2056 Tax-Exempt Distributing Ladder ETF",
+   "issuer": "Northern Trust Asset Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "HBIT",
+   "name": "Hedgeye Hedged Bitcoin ETF",
+   "issuer": "Hedgeye Asset Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "crypto",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "BTA",
+   "name": "Beacon Tactical Alternatives Risk ETF",
+   "issuer": "Beacon Capital Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-24-28-2026"
+  },
+  {
+   "ticker": "PJIN",
+   "name": "PGIM Jennison International Core Equity ETF",
+   "issuer": "PGIM",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-31-september-4-2026"
+  },
+  {
+   "ticker": "PJSM",
+   "name": "PGIM Jennison Small-Mid Cap Core Equity ETF",
+   "issuer": "PGIM",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-31-september-4-2026"
+  },
+  {
+   "ticker": "HQDG",
+   "name": "Raub Brock Dividend Growth ETF",
+   "issuer": "Raub Brock Capital Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "dividend",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-31-september-4-2026"
+  },
+  {
+   "ticker": "DIVH",
+   "name": "Integrity Dividend Harvest ETF",
+   "issuer": "Viking Fund Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "dividend",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-31-september-4-2026"
+  },
+  {
+   "ticker": "VOOY",
+   "name": "XFUNDS Large Cap Income ETF",
+   "issuer": "XFUNDS",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-31-september-4-2026"
+  },
+  {
+   "ticker": "ISRL",
+   "name": "Defiance KSM Israel 120 ETF",
+   "issuer": "Defiance",
+   "launch_date": null,
+   "exchange": null,
+   "category": "broad index",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-31-september-4-2026"
+  },
+  {
+   "ticker": "FRUT",
+   "name": "MANGOS Plus Index ETF",
+   "issuer": "Yorkville America",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-31-september-4-2026"
+  },
+  {
+   "ticker": "SKHQ",
+   "name": "2x Short SK Hynix Daily ETF",
+   "issuer": "Leverage Shares",
+   "launch_date": null,
+   "exchange": "Cboe",
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-31-september-4-2026"
+  },
+  {
+   "ticker": "HXF",
+   "name": "Mast HedgeIndex Managed Futures Strategy ETF",
+   "issuer": "Mast Investments",
+   "launch_date": null,
+   "exchange": null,
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-31-september-4-2026"
+  },
+  {
+   "ticker": "TSCZ",
+   "name": "Securitized Income ETF",
+   "issuer": "T. Rowe Price",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-31-september-4-2026"
+  },
+  {
+   "ticker": "UCBG",
+   "name": "SPDR UC Investments 90/10 Endowment Strategy Index ETF",
+   "issuer": "State Street",
+   "launch_date": null,
+   "exchange": null,
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-august-31-september-4-2026"
+  },
+  {
+   "ticker": "GEMQ",
+   "name": "Goldman Sachs Data Enhanced Emerging Markets Equity ETF",
+   "issuer": "Goldman Sachs Asset Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-7-11-2026"
+  },
+  {
+   "ticker": "VEEM",
+   "name": "MSCI EM Analyst Sentiment ETF",
+   "issuer": "VanEck",
+   "launch_date": null,
+   "exchange": "Nasdaq",
+   "category": "broad index",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-7-11-2026"
+  },
+  {
+   "ticker": "AIFR",
+   "name": "Global Foundries ETF",
+   "issuer": "Defiance",
+   "launch_date": null,
+   "exchange": "Nasdaq",
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-7-11-2026"
+  },
+  {
+   "ticker": "AIMG",
+   "name": "AI Magnificent 10 ETF",
+   "issuer": "Defiance",
+   "launch_date": null,
+   "exchange": "Nasdaq",
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-7-11-2026"
+  },
+  {
+   "ticker": "CRAM",
+   "name": "China Memory ETF",
+   "issuer": "Defiance",
+   "launch_date": null,
+   "exchange": "Nasdaq",
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-7-11-2026"
+  },
+  {
+   "ticker": "NRAM",
+   "name": "Next Generation Memory Index ETF",
+   "issuer": "Yorkville America",
+   "launch_date": null,
+   "exchange": "NYSE Arca and NYSE Texas",
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-7-11-2026"
+  },
+  {
+   "ticker": "MLCC",
+   "name": "Global X MLCC & Electronic Components ETF",
+   "issuer": "Global X",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-7-11-2026"
+  },
+  {
+   "ticker": "CCML",
+   "name": "MLCC & Electronic Components ETF",
+   "issuer": "Roundhill",
+   "launch_date": null,
+   "exchange": "Nasdaq",
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-7-11-2026"
+  },
+  {
+   "ticker": "ACBH",
+   "name": "High Income Autocallable ETF",
+   "issuer": "Pacer",
+   "launch_date": null,
+   "exchange": "Nasdaq",
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-7-11-2026"
+  },
+  {
+   "ticker": "ACBE",
+   "name": "Enhanced Core Income Autocallable ETF",
+   "issuer": "Pacer",
+   "launch_date": null,
+   "exchange": "Nasdaq",
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-7-11-2026"
+  },
+  {
+   "ticker": "DICE",
+   "name": "Trading & Prediction Markets ETF",
+   "issuer": "Tema",
+   "launch_date": null,
+   "exchange": "Cboe",
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-7-11-2026"
+  },
+  {
+   "ticker": "KATT",
+   "name": "T-REX 2X Long PURR Daily Target ETF",
+   "issuer": "REX Shares",
+   "launch_date": null,
+   "exchange": "Cboe",
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-7-11-2026"
+  },
+  {
+   "ticker": "TDNA",
+   "name": "T. Rowe Price Biotech ETF",
+   "issuer": "T. Rowe Price",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-14-18-2026"
+  },
+  {
+   "ticker": "TSEE",
+   "name": "T. Rowe Price Small-Cap ETF",
+   "issuer": "T. Rowe Price",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-14-18-2026"
+  },
+  {
+   "ticker": "TMID",
+   "name": "T. Rowe Price Mid-Cap Equity Research ETF",
+   "issuer": "T. Rowe Price",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-14-18-2026"
+  },
+  {
+   "ticker": "CGFS",
+   "name": "CG Flagship Equity ETF",
+   "issuer": "CG Advisory Services",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-14-18-2026"
+  },
+  {
+   "ticker": "BUIL",
+   "name": "Rebuild America ETF",
+   "issuer": "River1 Asset Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-14-18-2026"
+  },
+  {
+   "ticker": "PCPC",
+   "name": "Porter & Company Property & Casualty Index ETF",
+   "issuer": "Porter & Co.",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-14-18-2026"
+  },
+  {
+   "ticker": "HUMM",
+   "name": "800VDC AI Datacenter Ecosystem ETF",
+   "issuer": "Harbor Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-14-18-2026"
+  },
+  {
+   "ticker": "PWRX",
+   "name": "Westwood Salient Enhanced Power & Infrastructure ETF",
+   "issuer": "Westwood",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-14-18-2026"
+  },
+  {
+   "ticker": "AICH",
+   "name": "China AI ETF",
+   "issuer": "EMXETF",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-14-18-2026"
+  },
+  {
+   "ticker": "AT",
+   "name": "Robotics Actuators ETF",
+   "issuer": "Defiance",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-14-18-2026"
+  },
+  {
+   "ticker": "IQGR",
+   "name": "Astoria International Quality Growth Kings ETF",
+   "issuer": "Astoria Investment Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-14-18-2026"
+  },
+  {
+   "ticker": "JINT",
+   "name": "International Core Alpha ETF",
+   "issuer": "Janus Henderson",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-14-18-2026"
+  },
+  {
+   "ticker": "KCHP",
+   "name": "KICK Korea Semiconductor Index ETF",
+   "issuer": "Kiwoom Securities",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-14-18-2026"
+  },
+  {
+   "ticker": "XUSM",
+   "name": "MarketDesk International Momentum ETF",
+   "issuer": "MarketDesk Indices",
+   "launch_date": null,
+   "exchange": null,
+   "category": "broad index",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-14-18-2026"
+  },
+  {
+   "ticker": "SALI",
+   "name": "U.S. Autocallable Ladder Income ETF",
+   "issuer": "Schroders",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-14-18-2026"
+  },
+  {
+   "ticker": "MNGZ",
+   "name": "2X Long MANGOS Plus Daily Target ETF",
+   "issuer": "Yorkville America",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-14-18-2026"
+  },
+  {
+   "ticker": "ASSX",
+   "name": "T-REX 2X Long ASST Daily Target ETF",
+   "issuer": "REX Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-14-18-2026"
+  },
+  {
+   "ticker": "NUIB",
+   "name": "Nuveen Impact Bond ETF",
+   "issuer": "Nuveen",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-14-18-2026"
+  },
+  {
+   "ticker": "BSMA",
+   "name": "BulletShares 2036 Municipal Bond ETF",
+   "issuer": "Invesco",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-14-18-2026"
+  },
+  {
+   "ticker": "TORK",
+   "name": "KraneShares Actuator ETF",
+   "issuer": "KraneShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "CHIP",
+   "name": "REX AI Chipmaking ETF",
+   "issuer": "REX Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "NECK",
+   "name": "xETFs AI Bottlenecks ETF",
+   "issuer": "xETFs",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "AIBF",
+   "name": "iShares Future AI Beneficiaries ETF",
+   "issuer": "iShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "PBWN",
+   "name": "Portfolio Building Block World Ex US Industrials ETF",
+   "issuer": "Portfolio Building Block",
+   "launch_date": null,
+   "exchange": null,
+   "category": "broad index",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "PBUB",
+   "name": "Portfolio Building Block US Banks ETF",
+   "issuer": "Portfolio Building Block",
+   "launch_date": null,
+   "exchange": null,
+   "category": "broad index",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "PBCS",
+   "name": "Portfolio Building Block World Consumer Staples ETF",
+   "issuer": "Portfolio Building Block",
+   "launch_date": null,
+   "exchange": null,
+   "category": "broad index",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "QQI",
+   "name": "Invesco Nasdaq International Innovators 100 ETF",
+   "issuer": "Invesco",
+   "launch_date": null,
+   "exchange": null,
+   "category": "broad index",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "ENRG",
+   "name": "Ninepoint North American Energy Independence ETF",
+   "issuer": "Ninepoint Partners",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "TLIE",
+   "name": "American Beacon The London Company Income Equity ETF",
+   "issuer": "American Beacon",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "MGIN",
+   "name": "Man Active Global Infrastructure ETF",
+   "issuer": "Man Group",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "XVAD",
+   "name": "FT Vest AMD Target Income ETF",
+   "issuer": "First Trust",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "XVAZ",
+   "name": "FT Vest Amazon Target Income ETF",
+   "issuer": "First Trust",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "XVGL",
+   "name": "FT Vest Alphabet Target Income ETF",
+   "issuer": "First Trust",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "XVMS",
+   "name": "FT Vest Microsoft Target Income ETF",
+   "issuer": "First Trust",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "XVMT",
+   "name": "FT Vest Meta Target Income ETF",
+   "issuer": "First Trust",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "XVPT",
+   "name": "FT Vest Palantir Target Income ETF",
+   "issuer": "First Trust",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "DQSE",
+   "name": "FT Vest Nasdaq-100 Dual Directional Buffer ETF - September",
+   "issuer": "First Trust",
+   "launch_date": null,
+   "exchange": null,
+   "category": "buffer/defined-outcome",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "QQBF",
+   "name": "FT Vest Nasdaq-100 Quarterly 15 Buffer ETF",
+   "issuer": "First Trust",
+   "launch_date": null,
+   "exchange": null,
+   "category": "buffer/defined-outcome",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "VOOB",
+   "name": "Shield S&P 500 Enhanced Protection ETF",
+   "issuer": "VistaShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "buffer/defined-outcome",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "QQQB",
+   "name": "Shield Nasdaq-100 Enhanced Protection ETF",
+   "issuer": "VistaShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "buffer/defined-outcome",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "VAIC",
+   "name": "VegaShares US Equity Autocallable Conservative Income ETF",
+   "issuer": "VegaShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "MNGB",
+   "name": "2X Inverse MANGOS Plus Daily Target ETF",
+   "issuer": "Yorkville America",
+   "launch_date": null,
+   "exchange": null,
+   "category": "leveraged/single-stock",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "MYCP",
+   "name": "State Street My2036 Corporate Bond ETF",
+   "issuer": "State Street",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "MYHF",
+   "name": "State Street My2032 High Yield Corporate Bond ETF",
+   "issuer": "State Street",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "MYML",
+   "name": "State Street My2032 Municipal Bond ETF",
+   "issuer": "State Street",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "TXNY",
+   "name": "Northern Trust New York Intermediate Tax-Exempt Bond ETF",
+   "issuer": "Northern Trust Asset Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "TXCA",
+   "name": "Northern Trust California Intermediate Tax-Exempt Bond ETF",
+   "issuer": "Northern Trust Asset Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "VMSD",
+   "name": "VictoryShares Short-Duration Municipal ETF",
+   "issuer": "Victory Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "VMHY",
+   "name": "VictoryShares Municipal High Yield ETF",
+   "issuer": "Victory Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "DCAP",
+   "name": "T-Strive Digital Credit Preferred Income ETF",
+   "issuer": "Tuttle Capital Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-21-25-2026"
+  },
+  {
+   "ticker": "MN",
+   "name": "Corgi MANGOS ETF",
+   "issuer": "Corgi",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "LLMA",
+   "name": "Global X LLM ETF",
+   "issuer": "Global X",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "ENHE",
+   "name": "iShares Enhanced Emerging Markets Active ETF",
+   "issuer": "iShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "LUNC",
+   "name": "Longnook Uncommon Compounders ETF",
+   "issuer": "Longnook",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "TRIL",
+   "name": "VegaShares Trillions ETF",
+   "issuer": "VegaShares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "JQTY",
+   "name": "Jensen U.S. Quality Index ETF",
+   "issuer": "Jensen Investment Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "broad index",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "EAFH",
+   "name": "Xtrackers MSCI EAFE 50% Hedged Equity ETF",
+   "issuer": "Xtrackers (DWS)",
+   "launch_date": null,
+   "exchange": null,
+   "category": "broad index",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "ICMO",
+   "name": "Symmetry Panoramic International Country Momentum ETF",
+   "issuer": "Symmetry Partners",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "LCIV",
+   "name": "Logan Capital International ETF",
+   "issuer": "Logan Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "ACIG",
+   "name": "Hartford Alpha Capture International Growth ETF",
+   "issuer": "Hartford",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "ACSM",
+   "name": "Hartford Alpha Capture SMID Cap ETF",
+   "issuer": "Hartford",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "OCTI",
+   "name": "AllianzIM International Equity Buffer15 Uncapped Oct ETF",
+   "issuer": "AllianzIM",
+   "launch_date": null,
+   "exchange": null,
+   "category": "buffer/defined-outcome",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "OCT",
+   "name": "VanEck U.S. Equity Buffer ETF - October",
+   "issuer": "VanEck",
+   "launch_date": null,
+   "exchange": null,
+   "category": "buffer/defined-outcome",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "XX",
+   "name": "Roundhill S&P 500 Target 10,000 2030 ETF",
+   "issuer": "Roundhill",
+   "launch_date": null,
+   "exchange": null,
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "PFRX",
+   "name": "Putnam Focused U.S. Research ETF",
+   "issuer": "Putnam",
+   "launch_date": null,
+   "exchange": "NYSE",
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "MUY",
+   "name": "MU Option Income Strategy ETF",
+   "issuer": "YieldMax",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "TDEM",
+   "name": "T. Rowe Price Dynamic Emerging Markets Bond ETF",
+   "issuer": "T. Rowe Price",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "MMHI",
+   "name": "NYLIM MacKay Muni High Income ETF",
+   "issuer": "New York Life Investment Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "NRR",
+   "name": "Bitwise NEAR ETF",
+   "issuer": "Bitwise",
+   "launch_date": null,
+   "exchange": "NYSE Arca",
+   "category": "crypto",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "BCOM",
+   "name": "Rareview Bloomberg Commodity Index ETF",
+   "issuer": "Rareview Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "DBAR",
+   "name": "iMGP DBi Absolute Return ETF",
+   "issuer": "iMGP",
+   "launch_date": null,
+   "exchange": null,
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-september-28-october-2-2026"
+  },
+  {
+   "ticker": "XXSP",
+   "name": "Subversive S&P 500 Redacted ETF",
+   "issuer": "Subversive ETFs",
+   "launch_date": null,
+   "exchange": "Cboe",
+   "category": "broad index",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-5-9-2026"
+  },
+  {
+   "ticker": "XXQQ",
+   "name": "Subversive Growth 100 Redacted ETF",
+   "issuer": "Subversive ETFs",
+   "launch_date": null,
+   "exchange": "Cboe",
+   "category": "broad index",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-5-9-2026"
+  },
+  {
+   "ticker": "CPU",
+   "name": "Amplify Top 10 Semiconductors ETF",
+   "issuer": "Amplify",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-5-9-2026"
+  },
+  {
+   "ticker": "UBIQ",
+   "name": "AAM Ubiquitous ETF",
+   "issuer": "Advisors Asset Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-5-9-2026"
+  },
+  {
+   "ticker": "WSLS",
+   "name": "WisdomTree Efficient Long/Short U.S. SmallCap Equity Fund",
+   "issuer": "WisdomTree",
+   "launch_date": null,
+   "exchange": "Texas Stock Exchange",
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-5-9-2026"
+  },
+  {
+   "ticker": "WTAL",
+   "name": "WisdomTree Global Alpha Fund",
+   "issuer": "WisdomTree",
+   "launch_date": null,
+   "exchange": "Texas Stock Exchange",
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-5-9-2026"
+  },
+  {
+   "ticker": "OAKL",
+   "name": "Oakmark U.S. Concentrated ETF",
+   "issuer": "Oakmark",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-5-9-2026"
+  },
+  {
+   "ticker": "SPXP",
+   "name": "Direxion U.S. 500 Plus ETF",
+   "issuer": "Direxion",
+   "launch_date": null,
+   "exchange": null,
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-5-9-2026"
+  },
+  {
+   "ticker": "SMTJ",
+   "name": "Synera Funds Takumi+ ETF",
+   "issuer": "Synera Funds",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-5-9-2026"
+  },
+  {
+   "ticker": "OPTO",
+   "name": "Tuttle Capital Photonics Income Blast ETF",
+   "issuer": "Tuttle Capital Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-5-9-2026"
+  },
+  {
+   "ticker": "ACYB",
+   "name": "FT Vest Laddered Autocallable Buffer & Resilient Income ETF",
+   "issuer": "First Trust",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-5-9-2026"
+  },
+  {
+   "ticker": "RINK",
+   "name": "Russell Investments Multisector Bond ETF",
+   "issuer": "Russell Investments",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-5-9-2026"
+  },
+  {
+   "ticker": "HFIX",
+   "name": "Nomura High Yield Total Return ETF",
+   "issuer": "Nomura Asset Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-5-9-2026"
+  },
+  {
+   "ticker": "SLVI",
+   "name": "NEOS Silver High Income ETF",
+   "issuer": "NEOS",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-5-9-2026"
+  },
+  {
+   "ticker": "GMAC",
+   "name": "Simplify Brookwood Global Macro ETF",
+   "issuer": "Simplify",
+   "launch_date": null,
+   "exchange": null,
+   "category": "other",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-5-9-2026"
+  },
+  {
+   "ticker": "HOID",
+   "name": "Tuttle - Rareview Humanoid Robotics ETF",
+   "issuer": "Tuttle Capital Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "SMRZ",
+   "name": "Global X Small Modular Reactor ETF",
+   "issuer": "Global X",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "ACHP",
+   "name": "Global X Asia Semiconductor ETF",
+   "issuer": "Global X",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "MGOL",
+   "name": "Leverage Shares MANGOS ETF",
+   "issuer": "Leverage Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "WBEM",
+   "name": "William Blair Emerging Markets Equity ETF",
+   "issuer": "William Blair",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "WBIE",
+   "name": "William Blair International Equity ETF",
+   "issuer": "William Blair",
+   "launch_date": null,
+   "exchange": null,
+   "category": "active equity",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "GANZ",
+   "name": "Tuttle Capital Thematic ETF",
+   "issuer": "Tuttle Capital Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "PEPT",
+   "name": "REX Peptide ETF",
+   "issuer": "REX Shares",
+   "launch_date": null,
+   "exchange": null,
+   "category": "thematic",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "VGTX",
+   "name": "XFUNDS Technology Income ETF",
+   "issuer": "XFUNDS",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "XLYM",
+   "name": "State Street S&P 500 Consumer Discretionary Market Sector SPDR ETF",
+   "issuer": "State Street",
+   "launch_date": null,
+   "exchange": null,
+   "category": "broad index",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "XLPM",
+   "name": "State Street S&P 500 Consumer Staples Market Sector SPDR ETF",
+   "issuer": "State Street",
+   "launch_date": null,
+   "exchange": null,
+   "category": "broad index",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "XLEM",
+   "name": "State Street S&P 500 Energy Market Sector SPDR ETF",
+   "issuer": "State Street",
+   "launch_date": null,
+   "exchange": null,
+   "category": "broad index",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "XLKM",
+   "name": "State Street S&P 500 Technology Market Sector SPDR ETF",
+   "issuer": "State Street",
+   "launch_date": null,
+   "exchange": null,
+   "category": "broad index",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "RTHY",
+   "name": "F/m Long-Term Treasury Inflation-Protected Security ETF",
+   "issuer": "F/m Investments",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "AGGB",
+   "name": "Corgi FTSE U.S. Aggregate Bond ETF",
+   "issuer": "Corgi",
+   "launch_date": "2026-10-16",
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "UB",
+   "name": "Corgi U.S. Treasury Bond ETF",
+   "issuer": "Corgi",
+   "launch_date": "2026-10-16",
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "TTTT",
+   "name": "Corgi U.S. TIPS Bond ETF",
+   "issuer": "Corgi",
+   "launch_date": "2026-10-16",
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "HH",
+   "name": "Corgi High Yield Corporate Bond ETF",
+   "issuer": "Corgi",
+   "launch_date": "2026-10-16",
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "BBBB",
+   "name": "Corgi BBB Rated Corporate Bond ETF",
+   "issuer": "Corgi",
+   "launch_date": "2026-10-16",
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "AAAB",
+   "name": "Corgi Aaa-A Intermediate Corporate Bond ETF",
+   "issuer": "Corgi",
+   "launch_date": "2026-10-16",
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "ANG",
+   "name": "Corgi Fallen Angels Bond ETF",
+   "issuer": "Corgi",
+   "launch_date": "2026-10-16",
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "MMF",
+   "name": "Corgi Money Market ETF",
+   "issuer": "Corgi",
+   "launch_date": "2026-10-16",
+   "exchange": null,
+   "category": "fixed income",
+   "market": "US",
+   "source_url": "https://www.etfcentral.com/news/etf-news-you-missed-this-week-october-12-16-2026"
+  },
+  {
+   "ticker": "HPYG",
+   "name": "Harvest Premium Yield Gold ETF",
+   "issuer": "Harvest ETFs",
+   "launch_date": "2026-07-07",
+   "exchange": "TSX",
+   "category": "income/covered-call",
+   "market": "CA",
+   "source_url": "https://harvestportfolios.com/harvest-announces-listing-of-the-harvest-premium-yield-gold-etf/"
+  },
+  {
+   "ticker": "MLRG",
+   "name": "Madison US Large Cap ETF",
+   "issuer": "Madison Investments",
+   "launch_date": "2026-07-08",
+   "exchange": "TSX",
+   "category": "active equity",
+   "market": "CA",
+   "source_url": "https://www.advisor.ca/investments/products/product-roundup-madison-investments-enters-canadas-etf-industry-with-pair-of-active-funds/"
+  },
+  {
+   "ticker": "MMID",
+   "name": "Madison US Mid Cap ETF",
+   "issuer": "Madison Investments",
+   "launch_date": "2026-07-08",
+   "exchange": "TSX",
+   "category": "active equity",
+   "market": "CA",
+   "source_url": "https://www.advisor.ca/investments/products/product-roundup-madison-investments-enters-canadas-etf-industry-with-pair-of-active-funds/"
+  },
+  {
+   "ticker": "NSDC",
+   "name": "NBI SmartData Canadian Equity Fund (ETF series)",
+   "issuer": "National Bank Investments",
+   "launch_date": null,
+   "exchange": "TSX",
+   "category": "active equity",
+   "market": "CA",
+   "source_url": "https://www.advisor.ca/investments/products/product-roundup-madison-investments-enters-canadas-etf-industry-with-pair-of-active-funds/"
+  },
+  {
+   "ticker": "CFIN",
+   "name": "Evolve Canadian Financials Yield Fund",
+   "issuer": "Evolve",
+   "launch_date": "2026-07-14",
+   "exchange": "TSX",
+   "category": "income/covered-call",
+   "market": "CA",
+   "source_url": "https://www.webull.com/news/15225676243428352"
+  },
+  {
+   "ticker": "CUTE",
+   "name": "Evolve Canadian Utilities Yield Fund",
+   "issuer": "Evolve",
+   "launch_date": "2026-07-14",
+   "exchange": "TSX",
+   "category": "income/covered-call",
+   "market": "CA",
+   "source_url": "https://www.webull.com/news/15225676243428352"
+  },
+  {
+   "ticker": "PAYI",
+   "name": "Brompton Utilities & Infrastructure HighPay ETF",
+   "issuer": "Brompton Funds",
+   "launch_date": "2026-07-20",
+   "exchange": "TSX",
+   "category": "income/covered-call",
+   "market": "CA",
+   "source_url": "https://www.stockwatch.com/News/Item/Z-C!PAYU-3842673/C/PAYU"
+  },
+  {
+   "ticker": "PAYU",
+   "name": "Brompton U.S. Equity HighPay ETF",
+   "issuer": "Brompton Funds",
+   "launch_date": "2026-07-20",
+   "exchange": "TSX",
+   "category": "income/covered-call",
+   "market": "CA",
+   "source_url": "https://www.stockwatch.com/News/Item/Z-C!PAYU-3842673/C/PAYU"
+  },
+  {
+   "ticker": "CAPU",
+   "name": "Capital Group U.S. Equity Select ETF (Canada)",
+   "issuer": "Capital Group",
+   "launch_date": "2026-07-23",
+   "exchange": "TSX",
+   "category": "active equity",
+   "market": "CA",
+   "source_url": "https://etfgi.com/news/stories/2026/07/capital-group-canada-launches-three-active-equity-etfs-tsx"
+  },
+  {
+   "ticker": "CAPN",
+   "name": "Capital Group International Developed Equity Select ETF (Canada)",
+   "issuer": "Capital Group",
+   "launch_date": "2026-07-23",
+   "exchange": "TSX",
+   "category": "active equity",
+   "market": "CA",
+   "source_url": "https://etfgi.com/news/stories/2026/07/capital-group-canada-launches-three-active-equity-etfs-tsx"
+  },
+  {
+   "ticker": "CAPQ",
+   "name": "Capital Group Global Developed Equity Select ETF (Canada)",
+   "issuer": "Capital Group",
+   "launch_date": "2026-07-23",
+   "exchange": "TSX",
+   "category": "active equity",
+   "market": "CA",
+   "source_url": "https://etfgi.com/news/stories/2026/07/capital-group-canada-launches-three-active-equity-etfs-tsx"
+  },
+  {
+   "ticker": "HHII",
+   "name": "Harvest International High Income Shares ETF",
+   "issuer": "Harvest ETFs",
+   "launch_date": "2026-07-23",
+   "exchange": "TSX",
+   "category": "income/covered-call",
+   "market": "CA",
+   "source_url": "https://harvestportfolios.com/harvest-announces-listing-of-the-harvest-international-high-income-shares-etf/"
+  },
+  {
+   "ticker": "IIME",
+   "name": "IA Clarington International Multifactor Equity Fund (ETF series)",
+   "issuer": "iA Clarington",
+   "launch_date": "2026-07-27",
+   "exchange": "TSX",
+   "category": "active equity",
+   "market": "CA",
+   "source_url": "https://iaclarington.com/about-us/press-releases/ia-clarington-expands-mutual-fund-and-active-etf-series-lineup-with-the-launch-of-the-ia-clarington-international-multifactor-equity-fund"
+  },
+  {
+   "ticker": "GIAI",
+   "name": "Guardian i3 AI Technology and Innovation Fund (ETF units)",
+   "issuer": "Guardian Capital",
+   "launch_date": "2026-07-28",
+   "exchange": "TSX",
+   "category": "thematic",
+   "market": "CA",
+   "source_url": "https://www.guardiancapital.com/app/uploads/gclp-launches-innovative-ai-fund-july2826.pdf"
+  },
+  {
+   "ticker": "ZCDX",
+   "name": "BMO Credit Stress Opportunities ETF (CAD units)",
+   "issuer": "BMO",
+   "launch_date": null,
+   "exchange": "TSX",
+   "category": "other",
+   "market": "CA",
+   "source_url": "https://newsroom.bmo.com/2026-07-30-BMO-Announces-the-Launch-of-New-BMO-ETF"
+  },
+  {
+   "ticker": "PBY",
+   "name": "Lysander-Canso Credit Income ActivETF",
+   "issuer": "Lysander Funds",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "CA",
+   "source_url": "https://www.theglobeandmail.com/investing/markets/etfs/article-canadian-etfs-17-new-fund-launches-in-july-many-targeting-yield/"
+  },
+  {
+   "ticker": "PSY",
+   "name": "Purpose Structured Equity Yield Fund (ETF series)",
+   "issuer": "Purpose Investments",
+   "launch_date": "2026-08-06",
+   "exchange": "TSX",
+   "category": "income/covered-call",
+   "market": "CA",
+   "source_url": "https://www.bnnbloomberg.ca/press-releases/2026/08/06/purpose-investments-launches-etf-series-of-canadas-first-structured-equity-yield-fund-tsx-psy/"
+  },
+  {
+   "ticker": "IBQT",
+   "name": "iShares Equity + Bitcoin ETF Portfolio",
+   "issuer": "RBC iShares",
+   "launch_date": "2026-08-10",
+   "exchange": null,
+   "category": "all-in-one",
+   "market": "CA",
+   "source_url": "https://usegreenline.com/articles/new-canadian-etfs-august-2026"
+  },
+  {
+   "ticker": "XINT",
+   "name": "iShares Core MSCI All-International Equity Index ETF",
+   "issuer": "RBC iShares",
+   "launch_date": "2026-08-10",
+   "exchange": null,
+   "category": "broad index",
+   "market": "CA",
+   "source_url": "https://usegreenline.com/articles/new-canadian-etfs-august-2026"
+  },
+  {
+   "ticker": "REMB",
+   "name": "RBC Emerging Markets Bond Fund - ETF Series",
+   "issuer": "RBC iShares",
+   "launch_date": "2026-08-12",
+   "exchange": "Cboe Canada",
+   "category": "fixed income",
+   "market": "CA",
+   "source_url": "https://etfmarket.cboe.com/canada/en/news/this-week-in-canada-etfs-august-10-14-2026"
+  },
+  {
+   "ticker": "RGCB",
+   "name": "RBC Global Corporate Bond Fund - ETF Series",
+   "issuer": "RBC iShares",
+   "launch_date": "2026-08-12",
+   "exchange": "Cboe Canada",
+   "category": "fixed income",
+   "market": "CA",
+   "source_url": "https://etfmarket.cboe.com/canada/en/news/this-week-in-canada-etfs-august-10-14-2026"
+  },
+  {
+   "ticker": "RHYB",
+   "name": "RBC High Yield Bond Fund - ETF Series",
+   "issuer": "RBC iShares",
+   "launch_date": "2026-08-12",
+   "exchange": "Cboe Canada",
+   "category": "fixed income",
+   "market": "CA",
+   "source_url": "https://etfmarket.cboe.com/canada/en/news/this-week-in-canada-etfs-august-10-14-2026"
+  },
+  {
+   "ticker": "TECY",
+   "name": "Evolve NASDAQ Technology UltraYield ETF",
+   "issuer": "Evolve",
+   "launch_date": "2026-08-13",
+   "exchange": "TSX",
+   "category": "income/covered-call",
+   "market": "CA",
+   "source_url": "https://www.newsfilecorp.com/release/309387"
+  },
+  {
+   "ticker": "CAMO",
+   "name": "Evolve Global Defense & Aerospace Index ETF (CAD hedged units)",
+   "issuer": "Evolve",
+   "launch_date": "2026-08-20",
+   "exchange": "TSX",
+   "category": "thematic",
+   "market": "CA",
+   "source_url": "https://www.newsfilecorp.com/release/310533"
+  },
+  {
+   "ticker": "TBCK",
+   "name": "TD Target 2031 Investment Grade Bond Fund (ETF series)",
+   "issuer": "TD Asset Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "CA",
+   "source_url": "https://etfmarket.cboe.com/canada/en/news/this-week-in-canada-etfs-august-17-21-2026"
+  },
+  {
+   "ticker": "CAGX",
+   "name": "Avantis CIBC World Equity ETF",
+   "issuer": "CIBC Asset Management",
+   "launch_date": "2026-08-27",
+   "exchange": null,
+   "category": "active equity",
+   "market": "CA",
+   "source_url": "https://usegreenline.com/articles/new-canadian-etfs-august-2026"
+  },
+  {
+   "ticker": "CAKE",
+   "name": "Avantis CIBC Balanced Asset Allocation ETF",
+   "issuer": "CIBC Asset Management",
+   "launch_date": "2026-08-27",
+   "exchange": null,
+   "category": "all-in-one",
+   "market": "CA",
+   "source_url": "https://usegreenline.com/articles/new-canadian-etfs-august-2026"
+  },
+  {
+   "ticker": "CAGR",
+   "name": "Avantis CIBC Growth Asset Allocation ETF",
+   "issuer": "CIBC Asset Management",
+   "launch_date": "2026-08-27",
+   "exchange": null,
+   "category": "all-in-one",
+   "market": "CA",
+   "source_url": "https://usegreenline.com/articles/new-canadian-etfs-august-2026"
+  },
+  {
+   "ticker": "ZABS",
+   "name": "BMO Asset-Backed Securities ETF (CAD units)",
+   "issuer": "BMO",
+   "launch_date": null,
+   "exchange": "TSX",
+   "category": "fixed income",
+   "market": "CA",
+   "source_url": "https://newsroom.bmo.com/2026-08-27-BMO-Launches-New-ETF"
+  },
+  {
+   "ticker": "VCOR",
+   "name": "Vanguard Global Core-Plus Bond ETF",
+   "issuer": "Vanguard",
+   "launch_date": "2026-09-09",
+   "exchange": "TSX",
+   "category": "fixed income",
+   "market": "CA",
+   "source_url": "https://www.vanguard.ca/content/dam/intl/americas/canada/en/documents/Final-VCOR-Vanguard-PR-Launch-Sept-2026.pdf"
+  },
+  {
+   "ticker": "WHYP",
+   "name": "Westcourt Hamilton Yield Portfolio ETF (CAD units)",
+   "issuer": "Hamilton ETFs",
+   "launch_date": "2026-09-10",
+   "exchange": "TSX",
+   "category": "income/covered-call",
+   "market": "CA",
+   "source_url": "https://secure.businesswire.com/news/home/20260909515940/en/Hamilton-ETFs-Launches-Westcourt-Hamilton-Yield-Portfolio-ETF"
+  },
+  {
+   "ticker": "ROSY",
+   "name": "Corton Rosenberg Global Macro Fund (CAD ETF units)",
+   "issuer": "Corton Capital",
+   "launch_date": null,
+   "exchange": "TSX",
+   "category": "other",
+   "market": "CA",
+   "source_url": "https://www.cantechletter.com/newswires/corton-capital-inc-announces-launch-of-corton-rosenberg-global-macro-fund/"
+  },
+  {
+   "ticker": "TPUT",
+   "name": "Corton Theta Alpha Fund",
+   "issuer": "Corton Capital",
+   "launch_date": null,
+   "exchange": null,
+   "category": "other",
+   "market": "CA",
+   "source_url": "https://etfmarket.cboe.com/canada/en/news/this-week-in-canada-etfs-september-7-11-2026"
+  },
+  {
+   "ticker": "USHI",
+   "name": "Ninepoint Enhanced U.S. Equity HighShares ETF",
+   "issuer": "Ninepoint Partners",
+   "launch_date": "2026-09-14",
+   "exchange": "TSX",
+   "category": "income/covered-call",
+   "market": "CA",
+   "source_url": "https://www.bnnbloomberg.ca/press-releases/2026/09/14/ninepoint-expands-its-highshares-line-up-with-the-launches-of-an-aerospace-and-defense-covered-call-etf-and-a-sector-balanced-us-high-income-equity-etf/"
+  },
+  {
+   "ticker": "EDHI",
+   "name": "Ninepoint Enhanced Aerospace and Defense HighShares ETF",
+   "issuer": "Ninepoint Partners",
+   "launch_date": "2026-09-14",
+   "exchange": "TSX",
+   "category": "income/covered-call",
+   "market": "CA",
+   "source_url": "https://www.bnnbloomberg.ca/press-releases/2026/09/14/ninepoint-expands-its-highshares-line-up-with-the-launches-of-an-aerospace-and-defense-covered-call-etf-and-a-sector-balanced-us-high-income-equity-etf/"
+  },
+  {
+   "ticker": "CMIG",
+   "name": "CI Munro International Growth Equity Fund (ETF C$ Series)",
+   "issuer": "CI Global Asset Management",
+   "launch_date": "2026-09-15",
+   "exchange": "TSX",
+   "category": "active equity",
+   "market": "CA",
+   "source_url": "https://www.bnnbloomberg.ca/press-releases/2026/09/15/ci-global-asset-management-launches-global-smallmid-cap-and-international-growth-equity-mandates-providing-new-diversification-options-for-mutual-fund-and-etf-investors/"
+  },
+  {
+   "ticker": "TQID",
+   "name": "TD Q International Dividend ETF",
+   "issuer": "TD Asset Management",
+   "launch_date": null,
+   "exchange": null,
+   "category": "dividend",
+   "market": "CA",
+   "source_url": "https://www.theglobeandmail.com/investing/markets/etfs/article-canadian-etfs-47-new-funds-come-to-market-spanning-equities-fixed/"
+  },
+  {
+   "ticker": "DRAM",
+   "name": "Global X Artificial Intelligence Memory Index ETF",
+   "issuer": "Global X Canada",
+   "launch_date": "2026-09-22",
+   "exchange": "TSX",
+   "category": "thematic",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/global-x-launches-global-x-artificial-intelligence-memory-index-etf-dram-and-six-other-etfs-882354170.html"
+  },
+  {
+   "ticker": "ACHP",
+   "name": "Global X Asia Semiconductor Index ETF",
+   "issuer": "Global X Canada",
+   "launch_date": "2026-09-22",
+   "exchange": "TSX",
+   "category": "thematic",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/global-x-launches-global-x-artificial-intelligence-memory-index-etf-dram-and-six-other-etfs-882354170.html"
+  },
+  {
+   "ticker": "KORX",
+   "name": "Global X Korea KOSPI 200 Index ETF (CAD units)",
+   "issuer": "Global X Canada",
+   "launch_date": "2026-09-22",
+   "exchange": "TSX",
+   "category": "broad index",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/global-x-launches-global-x-artificial-intelligence-memory-index-etf-dram-and-six-other-etfs-882354170.html"
+  },
+  {
+   "ticker": "CNDC",
+   "name": "Global X S&P/TSX Capped Composite Index ETF",
+   "issuer": "Global X Canada",
+   "launch_date": "2026-09-22",
+   "exchange": "TSX",
+   "category": "broad index",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/global-x-launches-global-x-artificial-intelligence-memory-index-etf-dram-and-six-other-etfs-882354170.html"
+  },
+  {
+   "ticker": "TMTX",
+   "name": "Global X 3-10 Year U.S. Treasury Bond Index ETF (CAD unhedged)",
+   "issuer": "Global X Canada",
+   "launch_date": "2026-09-22",
+   "exchange": "TSX",
+   "category": "fixed income",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/global-x-launches-global-x-artificial-intelligence-memory-index-etf-dram-and-six-other-etfs-882354170.html"
+  },
+  {
+   "ticker": "AGGX",
+   "name": "Global X Canadian Universe Bond Index ETF",
+   "issuer": "Global X Canada",
+   "launch_date": "2026-09-22",
+   "exchange": "TSX",
+   "category": "fixed income",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/global-x-launches-global-x-artificial-intelligence-memory-index-etf-dram-and-six-other-etfs-882354170.html"
+  },
+  {
+   "ticker": "GCIG",
+   "name": "Global X 1-10 Year Canadian Corporate Bond Index ETF",
+   "issuer": "Global X Canada",
+   "launch_date": "2026-09-22",
+   "exchange": "TSX",
+   "category": "fixed income",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/global-x-launches-global-x-artificial-intelligence-memory-index-etf-dram-and-six-other-etfs-882354170.html"
+  },
+  {
+   "ticker": "ZACU",
+   "name": "BMO Strategic Autocallable Income US Large Cap ETF (CAD units)",
+   "issuer": "BMO",
+   "launch_date": "2026-09-24",
+   "exchange": "TSX",
+   "category": "income/covered-call",
+   "market": "CA",
+   "source_url": "https://newswire.ca/news-releases/bmo-launches-its-first-dedicated-autocallable-etf-800322696.html"
+  },
+  {
+   "ticker": "RNWH",
+   "name": "RBC QUBE Market Neutral World Equity Fund (CAD Hedged) - ETF Series",
+   "issuer": "RBC iShares",
+   "launch_date": "2026-09-24",
+   "exchange": "Cboe Canada",
+   "category": "other",
+   "market": "CA",
+   "source_url": "https://www.cantechletter.com/newswires/the-rbc-ishares-alliance-launches-etf-series-of-rbc-qube-market-neutral-world-equity-fund-cad-hedged/"
+  },
+  {
+   "ticker": "MEQP",
+   "name": "Manulife All-Equity ETF Portfolio",
+   "issuer": "Manulife Investments",
+   "launch_date": null,
+   "exchange": "TSX",
+   "category": "all-in-one",
+   "market": "CA",
+   "source_url": "https://www.investmentexecutive.com/news/product/product-roundup-asset-managers-launch-multiple-etfs-in-one-go/"
+  },
+  {
+   "ticker": "MBND",
+   "name": "Manulife All-Fixed Income ETF Portfolio",
+   "issuer": "Manulife Investments",
+   "launch_date": null,
+   "exchange": "TSX",
+   "category": "all-in-one",
+   "market": "CA",
+   "source_url": "https://www.investmentexecutive.com/news/product/product-roundup-asset-managers-launch-multiple-etfs-in-one-go/"
+  },
+  {
+   "ticker": "IDUV.U",
+   "name": "Manulife Smart International Dividend ETF - USD",
+   "issuer": "Manulife Investments",
+   "launch_date": null,
+   "exchange": "TSX",
+   "category": "dividend",
+   "market": "CA",
+   "source_url": "https://www.investmentexecutive.com/news/product/product-roundup-asset-managers-launch-multiple-etfs-in-one-go/"
+  },
+  {
+   "ticker": "CORB",
+   "name": "Manulife Corporate Bond Fund (ETF series)",
+   "issuer": "Manulife Investments",
+   "launch_date": null,
+   "exchange": "TSX",
+   "category": "fixed income",
+   "market": "CA",
+   "source_url": "https://www.investmentexecutive.com/news/product/product-roundup-asset-managers-launch-multiple-etfs-in-one-go/"
+  },
+  {
+   "ticker": "NUCC",
+   "name": "NBI SmartData U.S. Equity Covered Call Fund (ETF series)",
+   "issuer": "National Bank Investments",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "CA",
+   "source_url": "https://www.theglobeandmail.com/investing/markets/etfs/article-canadian-etfs-47-new-funds-come-to-market-spanning-equities-fixed/"
+  },
+  {
+   "ticker": "NICC",
+   "name": "NBI SmartData International Equity Covered Call Fund (ETF series)",
+   "issuer": "National Bank Investments",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "CA",
+   "source_url": "https://www.theglobeandmail.com/investing/markets/etfs/article-canadian-etfs-47-new-funds-come-to-market-spanning-equities-fixed/"
+  },
+  {
+   "ticker": "NSUY",
+   "name": "NBI SmartData Enhanced Yield U.S. Equity Fund (ETF series)",
+   "issuer": "National Bank Investments",
+   "launch_date": null,
+   "exchange": null,
+   "category": "income/covered-call",
+   "market": "CA",
+   "source_url": "https://www.theglobeandmail.com/investing/markets/etfs/article-canadian-etfs-47-new-funds-come-to-market-spanning-equities-fixed/"
+  },
+  {
+   "ticker": "NTGG",
+   "name": "NBI Target 2032 Investment Grade Bond Fund (ETF series)",
+   "issuer": "National Bank Investments",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "CA",
+   "source_url": "https://www.theglobeandmail.com/investing/markets/etfs/article-canadian-etfs-47-new-funds-come-to-market-spanning-equities-fixed/"
+  },
+  {
+   "ticker": "NUST",
+   "name": "NBI Ultra Short-Term Fixed Income Fund (ETF series)",
+   "issuer": "National Bank Investments",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "CA",
+   "source_url": "https://www.theglobeandmail.com/investing/markets/etfs/article-canadian-etfs-47-new-funds-come-to-market-spanning-equities-fixed/"
+  },
+  {
+   "ticker": "MAGF",
+   "name": "Middlefield Alternative Global Fixed Income Fund (ETF series)",
+   "issuer": "Middlefield",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "CA",
+   "source_url": "https://www.theglobeandmail.com/investing/markets/etfs/article-canadian-etfs-47-new-funds-come-to-market-spanning-equities-fixed/"
+  },
+  {
+   "ticker": "MGFI",
+   "name": "Middlefield Global Multi-Sector Fixed Income Fund (ETF series)",
+   "issuer": "Middlefield",
+   "launch_date": null,
+   "exchange": null,
+   "category": "fixed income",
+   "market": "CA",
+   "source_url": "https://www.theglobeandmail.com/investing/markets/etfs/article-canadian-etfs-47-new-funds-come-to-market-spanning-equities-fixed/"
+  },
+  {
+   "ticker": "HONE",
+   "name": "Harvest All-In-One High Income Shares ETF",
+   "issuer": "Harvest ETFs",
+   "launch_date": null,
+   "exchange": "TSX",
+   "category": "income/covered-call",
+   "market": "CA",
+   "source_url": "https://www.investmentexecutive.com/news/product/product-roundup-asset-managers-launch-multiple-etfs-in-one-go/"
+  },
+  {
+   "ticker": "ASME",
+   "name": "Harvest ASML Enhanced High Income Shares ETF",
+   "issuer": "Harvest ETFs",
+   "launch_date": "2026-10-01",
+   "exchange": "TSX",
+   "category": "leveraged/single-stock",
+   "market": "CA",
+   "source_url": "https://harvestportfolios.com/?p=67137"
+  },
+  {
+   "ticker": "BRKE",
+   "name": "Harvest Berkshire Hathaway Enhanced High Income Shares ETF",
+   "issuer": "Harvest ETFs",
+   "launch_date": "2026-10-01",
+   "exchange": "TSX",
+   "category": "leveraged/single-stock",
+   "market": "CA",
+   "source_url": "https://harvestportfolios.com/?p=67137"
+  },
+  {
+   "ticker": "INTE",
+   "name": "Harvest Intel Enhanced High Income Shares ETF",
+   "issuer": "Harvest ETFs",
+   "launch_date": "2026-10-01",
+   "exchange": "TSX",
+   "category": "leveraged/single-stock",
+   "market": "CA",
+   "source_url": "https://harvestportfolios.com/?p=67137"
+  },
+  {
+   "ticker": "MUHE",
+   "name": "Harvest Micron Enhanced High Income Shares ETF",
+   "issuer": "Harvest ETFs",
+   "launch_date": "2026-10-01",
+   "exchange": "TSX",
+   "category": "leveraged/single-stock",
+   "market": "CA",
+   "source_url": "https://harvestportfolios.com/?p=67137"
+  },
+  {
+   "ticker": "MGEG",
+   "name": "Mackenzie Global Equity & Gold Overlay ETF",
+   "issuer": "Mackenzie Investments",
+   "launch_date": "2026-10-01",
+   "exchange": "TSX",
+   "category": "other",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/mackenzie-investments-expands-etf-lineup-with-global-equity-gold-overlay-and-systematic-multi-factor-solutions-897572467.html"
+  },
+  {
+   "ticker": "MMGL",
+   "name": "Mackenzie Modus Global Equity ETF",
+   "issuer": "Mackenzie Investments",
+   "launch_date": "2026-10-01",
+   "exchange": "TSX",
+   "category": "active equity",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/mackenzie-investments-expands-etf-lineup-with-global-equity-gold-overlay-and-systematic-multi-factor-solutions-897572467.html"
+  },
+  {
+   "ticker": "MMEA",
+   "name": "Mackenzie Modus International Equity ETF",
+   "issuer": "Mackenzie Investments",
+   "launch_date": "2026-10-01",
+   "exchange": "TSX",
+   "category": "active equity",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/mackenzie-investments-expands-etf-lineup-with-global-equity-gold-overlay-and-systematic-multi-factor-solutions-897572467.html"
+  },
+  {
+   "ticker": "MMSD",
+   "name": "Mackenzie Modus Global Small-Mid Cap Equity ETF",
+   "issuer": "Mackenzie Investments",
+   "launch_date": "2026-10-01",
+   "exchange": "TSX",
+   "category": "active equity",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/mackenzie-investments-expands-etf-lineup-with-global-equity-gold-overlay-and-systematic-multi-factor-solutions-897572467.html"
+  },
+  {
+   "ticker": "FGQE",
+   "name": "Fidelity Global Quant Equity ETF",
+   "issuer": "Fidelity Investments Canada",
+   "launch_date": "2026-10-01",
+   "exchange": "TSX",
+   "category": "active equity",
+   "market": "CA",
+   "source_url": "https://www.fidelity.ca/en/mediacentre/new-quant-etf/"
+  },
+  {
+   "ticker": "ZLAT",
+   "name": "BMO MSCI Latin America GDP Weighted Index ETF",
+   "issuer": "BMO",
+   "launch_date": "2026-10-08",
+   "exchange": "TSX",
+   "category": "broad index",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/bmo-launches-new-latin-america-index-etf-and-two-new-etf-series-884149355.html"
+  },
+  {
+   "ticker": "ZCRB",
+   "name": "BMO Core Bond Fund (ETF Series units)",
+   "issuer": "BMO",
+   "launch_date": "2026-10-08",
+   "exchange": "TSX",
+   "category": "fixed income",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/bmo-launches-new-latin-america-index-etf-and-two-new-etf-series-884149355.html"
+  },
+  {
+   "ticker": "ZEMB",
+   "name": "BMO Emerging Markets Bond Fund (ETF Series units)",
+   "issuer": "BMO",
+   "launch_date": "2026-10-08",
+   "exchange": "TSX",
+   "category": "fixed income",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/bmo-launches-new-latin-america-index-etf-and-two-new-etf-series-884149355.html"
+  },
+  {
+   "ticker": "XBAI",
+   "name": "iShares A.I. Innovation and Tech ETF",
+   "issuer": "RBC iShares",
+   "launch_date": "2026-10-13",
+   "exchange": "TSX",
+   "category": "thematic",
+   "market": "CA",
+   "source_url": "https://finviz.com/news/401646/the-rbc-ishares-alliance-expands-lineup-with-new-active-ai-and-technology-etf"
+  },
+  {
+   "ticker": "GOOP",
+   "name": "Global X Alphabet PowerStock ETF",
+   "issuer": "Global X Canada",
+   "launch_date": "2026-10-14",
+   "exchange": "TSX",
+   "category": "leveraged/single-stock",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/global-x-launches-powerstock-etf-suite-to-give-canadians-33-more-exposure-to-their-highest-conviction-stocks-872128949.html"
+  },
+  {
+   "ticker": "AMZP",
+   "name": "Global X Amazon PowerStock ETF",
+   "issuer": "Global X Canada",
+   "launch_date": "2026-10-14",
+   "exchange": "TSX",
+   "category": "leveraged/single-stock",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/global-x-launches-powerstock-etf-suite-to-give-canadians-33-more-exposure-to-their-highest-conviction-stocks-872128949.html"
+  },
+  {
+   "ticker": "AAPP",
+   "name": "Global X Apple PowerStock ETF",
+   "issuer": "Global X Canada",
+   "launch_date": "2026-10-14",
+   "exchange": "TSX",
+   "category": "leveraged/single-stock",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/global-x-launches-powerstock-etf-suite-to-give-canadians-33-more-exposure-to-their-highest-conviction-stocks-872128949.html"
+  },
+  {
+   "ticker": "NVDP",
+   "name": "Global X NVIDIA PowerStock ETF",
+   "issuer": "Global X Canada",
+   "launch_date": "2026-10-14",
+   "exchange": "TSX",
+   "category": "leveraged/single-stock",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/global-x-launches-powerstock-etf-suite-to-give-canadians-33-more-exposure-to-their-highest-conviction-stocks-872128949.html"
+  },
+  {
+   "ticker": "SPCP",
+   "name": "Global X SpaceX PowerStock ETF",
+   "issuer": "Global X Canada",
+   "launch_date": "2026-10-14",
+   "exchange": "TSX",
+   "category": "leveraged/single-stock",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/global-x-launches-powerstock-etf-suite-to-give-canadians-33-more-exposure-to-their-highest-conviction-stocks-872128949.html"
+  },
+  {
+   "ticker": "TSLP",
+   "name": "Global X Tesla PowerStock ETF",
+   "issuer": "Global X Canada",
+   "launch_date": "2026-10-14",
+   "exchange": "TSX",
+   "category": "leveraged/single-stock",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/global-x-launches-powerstock-etf-suite-to-give-canadians-33-more-exposure-to-their-highest-conviction-stocks-872128949.html"
+  },
+  {
+   "ticker": "NAGF",
+   "name": "Ninepoint American Growth Fund - ETF Series Units",
+   "issuer": "Ninepoint Partners",
+   "launch_date": "2026-10-14",
+   "exchange": null,
+   "category": "active equity",
+   "market": "CA",
+   "source_url": "https://etfmarket.cboe.com/canada/en"
+  },
+  {
+   "ticker": "CCAF",
+   "name": "CI Forge First Conservative Alternative Fund - ETF Series Units",
+   "issuer": "CI Global Asset Management",
+   "launch_date": "2026-10-15",
+   "exchange": null,
+   "category": "other",
+   "market": "CA",
+   "source_url": "https://etfmarket.cboe.com/canada/en"
+  },
+  {
+   "ticker": "CLSF",
+   "name": "CI Forge First Long Short Alternative Fund - ETF Series Units",
+   "issuer": "CI Global Asset Management",
+   "launch_date": "2026-10-15",
+   "exchange": null,
+   "category": "other",
+   "market": "CA",
+   "source_url": "https://etfmarket.cboe.com/canada/en"
+  },
+  {
+   "ticker": "PAYT",
+   "name": "Brompton Technology HighPay ETF",
+   "issuer": "Brompton Funds",
+   "launch_date": "2026-10-19",
+   "exchange": "TSX",
+   "category": "income/covered-call",
+   "market": "CA",
+   "source_url": "https://www.webull.com/news/15774625442472960"
+  },
+  {
+   "ticker": "NESB",
+   "name": "NEI Global Short-Term Bond Fund (ETF Series)",
+   "issuer": "NEI Investments",
+   "launch_date": "2026-10-22",
+   "exchange": "TSX",
+   "category": "fixed income",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/nei-investments-launches-inaugural-etf-series-on-the-toronto-stock-exchange-840865488.html"
+  },
+  {
+   "ticker": "NECP",
+   "name": "NEI Conservative Income ETF Portfolio (ETF Series)",
+   "issuer": "NEI Investments",
+   "launch_date": "2026-10-22",
+   "exchange": "TSX",
+   "category": "all-in-one",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/nei-investments-launches-inaugural-etf-series-on-the-toronto-stock-exchange-840865488.html"
+  },
+  {
+   "ticker": "NEBP",
+   "name": "NEI Balanced ETF Portfolio (ETF Series)",
+   "issuer": "NEI Investments",
+   "launch_date": "2026-10-22",
+   "exchange": "TSX",
+   "category": "all-in-one",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/nei-investments-launches-inaugural-etf-series-on-the-toronto-stock-exchange-840865488.html"
+  },
+  {
+   "ticker": "NEGP",
+   "name": "NEI Growth ETF Portfolio (ETF Series)",
+   "issuer": "NEI Investments",
+   "launch_date": "2026-10-22",
+   "exchange": "TSX",
+   "category": "all-in-one",
+   "market": "CA",
+   "source_url": "https://www.newswire.ca/news-releases/nei-investments-launches-inaugural-etf-series-on-the-toronto-stock-exchange-840865488.html"
+  }
+ ]
+}
